@@ -1,0 +1,63 @@
+<html>
+    <head>
+        <title>C API Reference</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="../css/github-markdown.css">
+        <link rel="stylesheet" href="../css/main.css">
+        <script>
+            function closeMenu() {
+                document.getElementById("menu-title").style.display = "block"
+                document.getElementById("menu-close").style.display = "none"
+                document.getElementById("menu").style.display = "none"
+
+            }
+
+            function showMenu() {
+                document.getElementById("menu-title").style.display = "none"
+                document.getElementById("menu-close").style.display = "block"
+                document.getElementById("menu").style.display = "block"
+            }
+        </script>
+    </head>
+
+    <body>
+        <header class="frame menu-bar">
+            <div class="menu-control link" style="position: absolute; left: 0px;" onclick="showMenu()">≡</div>
+            <h2 class="link" onclick="location.href='../index.html';">TXT 4.0</h2>
+        </header>
+        <div class="frame menu" id="menu" style="display: none;">
+            <h2 class="link" id="menu-title" style="text-align: center;" onclick="location.href='../index.html';">TXT 4.0</h2>
+            <div class="menu-control link", id="menu-close" style="display: none;" onclick="closeMenu()">×</div>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="getting_started.html">Getting Started</a></li>
+                <li><a href="devices.html">Devices</a></li>
+                <li><a href="cpp_interface.html">C++ Interface</a></li>
+                <li><a href="c_interface.html" class="active">C Interface</a></li>
+                <li>
+                    <ul>
+                        <li><a href="c_allocators.html">Allocators</a></li>
+                        <li><a href="c_operations.html">Operations</a></li>
+                        <li><a href="c_slaves.html">Slaves</a></li>
+                        <li><a href="c_fttypes.html">Types</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <div class="markdown-body">
+            <h1 id="c-interface">C Interface</h1>
+<p>The C interface implements the <a href="devices.html">Devices</a> and their operations. The
+interface is split up into different header files.</p>
+<ul>
+<li><a href="c_allocators.html">ftalloc.h</a>: Defines functions for allocatiting TXT and device instances.</li>
+<li><a href="c_operations.html">ftop.h</a>: Defines functions to operate on the TXT and device instances.</li>
+<li><a href="c_slaves.html">ftslave.h</a>: Defines functions for allocating TXT slave instances and for querying slave-related information.</li>
+<li><a href="c_fttypes.html">fttypes.h</a>: Defines useful values and types.</li>
+</ul>
+<p>The entire interface is inluded  by</p>
+<pre><code class="C language-C">#include &lt;ft/ft.h&gt;</code></pre>
+        </div>
+    </body>
+</html>

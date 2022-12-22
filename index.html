@@ -1,0 +1,72 @@
+<html>
+    <head>
+        <title>fischertechnik C/C++ Wiki</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="css/github-markdown.css">
+        <link rel="stylesheet" href="css/main.css">
+        <style>
+            .grid {
+                display: grid;
+                grid-template-columns: repeat(1, 1fr);
+                grid-auto-rows: 1fr;
+                column-gap: 20px;
+                row-gap: 20px;
+                margin: 15px;
+            }
+
+            .grid-item {
+                background-color: var(--color-canvas-subtle);
+                padding: 15px;
+                text-align: center;
+                max-height: 300px;
+                overflow: hidden;
+            }
+
+            @media only screen and (min-width: 600px) {
+                .grid {
+                    grid-template-columns: repeat(2, 1fr);
+                }
+            }
+
+            @media only screen and (min-width: 768px) {
+                .grid {
+                    grid-template-columns: repeat(3, 1fr);
+                }
+            }
+
+            @media (prefers-color-scheme: light) {
+                .frame {
+                    color-scheme: light;
+                    box-shadow:0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
+                    background-color: var(--color-canvas-default);
+                    border: none;
+                }
+            }
+        </style>
+    </head>
+
+    <body class="content">
+        <h1 class="title">TXT 4.0</h1>
+        <h1 style="text-align: center; margin-bottom: 50px;">The C/C++ Interface Reference</h1>
+    
+        <div class="grid">
+            <div class="grid-item frame link" onclick="location.href='src/getting_started.html';">
+                <h2>Getting Started</h2>
+                <p>Tips and tricks on how to develop C/C++ code for the TXT 4.0</p>
+            </div>
+            <div class="grid-item frame link" onclick="location.href='src/devices.html';">
+                <h2>Devices</h2>
+                <p>Detailed description of the abstaction of actuators and sensors connected to the TXT 4.0</p>
+            </div>
+            <div class="grid-item frame link" onclick="location.href='src/cpp_interface.html';">
+                <h2>C++ Interface</h2>
+                <p>API reference</p>
+            </div>
+            <div class="grid-item frame link" onclick="location.href='src/c_interface.html';">
+                <h2>C Interface</h2>
+                <p>API reference</p>
+            </div>
+        </div>
+    </body>
+</html>

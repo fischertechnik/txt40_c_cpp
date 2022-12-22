@@ -1,0 +1,418 @@
+<html>
+    <head>
+        <title>C Slave Reference></title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="../css/github-markdown.css">
+        <link rel="stylesheet" href="../css/main.css">
+        <script>
+            function closeMenu() {
+                document.getElementById("menu-title").style.display = "block"
+                document.getElementById("menu-close").style.display = "none"
+                document.getElementById("menu").style.display = "none"
+
+            }
+
+            function showMenu() {
+                document.getElementById("menu-title").style.display = "none"
+                document.getElementById("menu-close").style.display = "block"
+                document.getElementById("menu").style.display = "block"
+            }
+        </script>
+    </head>
+
+    <body>
+        <header class="frame menu-bar">
+            <div class="menu-control link" style="position: absolute; left: 0px;" onclick="showMenu()">≡</div>
+            <h2 class="link" onclick="location.href='../index.html';">TXT 4.0</h2>
+        </header>
+        <div class="frame menu" id="menu" style="display: none;">
+            <h2<h2 class="link" id="menu-title" style="text-align: center;" onclick="location.href='../index.html';">TXT 4.0</h2>
+            <div class="menu-control link", id="menu-close" style="display: none;" onclick="closeMenu()">×</div>
+            <ul>
+                <li><a href="home.html">Home</a></li>
+                <li><a href="getting_started.html">Getting Started</a></li>
+                <li><a href="devices.html">Devices</a></li>
+                <li><a href="cpp_interface.html">C++ Interface</a></li>
+                <li><a href="c_interface.html" class="selected">C Interface</a></li>
+                <li>
+                    <ul>
+                        <li><a href="c_allocators.html">Allocators</a></li>
+                        <li><a href="c_operations.html">Operations</a></li>
+                        <li><a href="c_slaves.html" class="active">Slaves</a></li>
+                        <li><a href="c_fttypes.html">Types</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <div class="markdown-body">
+            <h1 id="c-slave-operations">C Slave Operations</h1>
+<p>The header ftslave.h defines functions for allocalting slave TXTs as well as functions
+to query names, versions, serial numbers, firmware versions etc.</p>
+<table>
+<thead>
+<tr>
+<th id="content">Content</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="#get_slave_by_order">ftop_get_slave_by_order</a></td>
+</tr>
+<tr>
+<td><a href="#get_slave_by_uid">ftop_get_slave_by_uid</a></td>
+</tr>
+<tr>
+<td><a href="#get_slave_by_name">ftop_get_slave_by_name</a></td>
+</tr>
+<tr>
+<td><a href="#get_slave_by_SN">ftop_get_slave_by_SN</a></td>
+</tr>
+<tr>
+<td><a href="#get_name">ftop_get_name</a></td>
+</tr>
+<tr>
+<td><a href="#get_version">ftop_get_version</a></td>
+</tr>
+<tr>
+<td><a href="#get_firmware">ftop_get_firmware</a></td>
+</tr>
+<tr>
+<td><a href="#get_slaves_number">ftop_get_slaves_number</a></td>
+</tr>
+<tr>
+<td><a href="#get_txt_uid">ftop_get_txt_uid</a></td>
+</tr>
+<tr>
+<td><a href="#get_txt_name">ftop_get_txt_name</a></td>
+</tr>
+<tr>
+<td><a href="#get_txt_SN">ftop_get_txt_SN</a></td>
+</tr>
+<tr>
+<td><a href="#txt_mode">ftop_txt_mode</a></td>
+</tr>
+<tr>
+<td><a href="#txt_name">ftop_txt_name</a></td>
+</tr>
+</tbody>
+</table>
+<h2 id="allocators">Allocators</h2>
+<h3 id="span-classtype-idget_slave_by_ordervoid-spanftop_get_slave_by_orderspan-classtypefttxt2-spandevice-span-classtypeunsigned-intspan-number"><span class="type" id="get_slave_by_order">void *</span>ftop_get_slave_by_order(<span class="type">fttxt2 *</span>device, <span class="type">unsigned int</span> number)</h3>
+<p>Returns the slave TXT with the given number as network id. The network id is
+the order in which the TXTs are connected to the CAN-network.
+Returns <em>NULL</em> if <em>device</em> is <strong>NOT</strong> the master TXT or if a slave TXT with the
+given network id does not exsist.</p>
+<table>
+<thead>
+<tr>
+<th id="type">Type</th>
+<th id="paremeter">Paremeter</th>
+<th id="description">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>in</em></td>
+<td><strong>device</strong></td>
+<td>pointer to master TXT</td>
+</tr>
+<tr>
+<td><em>in</em></td>
+<td><strong>number</strong></td>
+<td>network id</td>
+</tr>
+</tbody>
+</table>
+<p>Return:  <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pointer to slave object</p>
+<h3 id="span-classtype-idget_slave_by_uidvoid-spanftop_get_slave_by_uidspan-classtypefttxt2-spandevice-span-classtypeunsigned-intspan-uid"><span class="type" id="get_slave_by_uid">void *</span>ftop_get_slave_by_uid(<span class="type">fttxt2 *</span>device, <span class="type">unsigned int</span> uid)</h3>
+<p>Returns the slave TXT with the given uid. Returns <em>NULL</em> if <em>device</em> is <strong>NOT</strong>
+the master TXT or if a slave TXT with the given uid does not exsist.</p>
+<table>
+<thead>
+<tr>
+<th id="type">Type</th>
+<th id="paremeter">Paremeter</th>
+<th id="description">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>in</em></td>
+<td><strong>device</strong></td>
+<td>pointer to master TXT</td>
+</tr>
+<tr>
+<td><em>in</em></td>
+<td><strong>uid</strong></td>
+<td>uid</td>
+</tr>
+</tbody>
+</table>
+<p>Return:  <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pointer to slave object</p>
+<h3 id="span-classtype-idget_slave_by_namevoid-spanftop_get_slave_by_namespan-classtypefttxt2-spandevice-span-classtypeconst-char-spanname"><span class="type" id="get_slave_by_name">void *</span>ftop_get_slave_by_name(<span class="type">fttxt2 *</span>device, <span class="type">const char *</span>name)</h3>
+<p>Returns the slave TXT with the given name. In order to get the slave based on
+the extension number set in the TXT's menu, use this function with the name
+'Extension.X' where X is the extension's number. Returns <em>NULL</em> if <em>device</em> is
+<strong>NOT</strong> the master TXT or if a slave TXT with the given name does not
+exsist.</p>
+<table>
+<thead>
+<tr>
+<th id="type">Type</th>
+<th id="paremeter">Paremeter</th>
+<th id="description">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>in</em></td>
+<td><strong>device</strong></td>
+<td>pointer to master TXT</td>
+</tr>
+<tr>
+<td><em>in</em></td>
+<td><strong>name</strong></td>
+<td>TXT name</td>
+</tr>
+</tbody>
+</table>
+<p>Return:  <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pointer to slave object</p>
+<h3 id="span-classtype-idget_slave_by_snvoid-spanftop_get_slave_by_snspan-classtypefttxt2-spandevice-span-classtypeconst-char-spansn"><span class="type" id="get_slave_by_SN">void *</span>ftop_get_slave_by_SN(<span class="type">fttxt2 *</span>device, <span class="type">const char *</span>sn)</h3>
+<p>Returns the slave TXT with the given serial number. Returns <em>NULL</em> if <em>device</em>
+is <strong>NOT</strong> the master TXT or if a slave TXT with the given serial number does
+not exsist.</p>
+<table>
+<thead>
+<tr>
+<th id="type">Type</th>
+<th id="paremeter">Paremeter</th>
+<th id="description">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>in</em></td>
+<td><strong>device</strong></td>
+<td>pointer to master TXT</td>
+</tr>
+<tr>
+<td><em>in</em></td>
+<td><strong>sn</strong></td>
+<td>serial number</td>
+</tr>
+</tbody>
+</table>
+<p>Return:  <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pointer to slave object</p>
+<h2 id="utility-functions">Utility Functions</h2>
+<h3 id="span-classtype-idget_nameconst-char-span-ftop_get_namespan-classtypefttxt2-spandevice"><span class="type" id="get_name">const char *</span> ftop_get_name(<span class="type">fttxt2 *</span>device)</h3>
+<p>Returns the TXT's name.</p>
+<table>
+<thead>
+<tr>
+<th id="type">Type</th>
+<th id="paremeter">Paremeter</th>
+<th id="description">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>in</em></td>
+<td><strong>device</strong></td>
+<td>pointer to TXT</td>
+</tr>
+</tbody>
+</table>
+<p>Return:  <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TXT name</p>
+<h3 id="span-classtype-idget_versionintspan-ftop_get_versionspan-classtypefttxt2-spandevice"><span class="type" id="get_version">int</span> ftop_get_version(<span class="type">fttxt2 *</span>device)</h3>
+<p>Returns the TXT's version.</p>
+<table>
+<thead>
+<tr>
+<th id="type">Type</th>
+<th id="paremeter">Paremeter</th>
+<th id="description">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>in</em></td>
+<td><strong>device</strong></td>
+<td>pointer to TXT</td>
+</tr>
+</tbody>
+</table>
+<p>Return:  <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TXT version</p>
+<h3 id="span-classtype-idget_firmwareintspan-top_get_firmwarespan-classtypefttxt2-spandevice"><span class="type" id="get_firmware">int</span> top_get_firmware(<span class="type">fttxt2 *</span>device)</h3>
+<p>Returns the TXT's firmware version.</p>
+<table>
+<thead>
+<tr>
+<th id="type">Type</th>
+<th id="paremeter">Paremeter</th>
+<th id="description">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>in</em></td>
+<td><strong>device</strong></td>
+<td>pointer to TXT</td>
+</tr>
+</tbody>
+</table>
+<p>Return:  <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TXT firmware version</p>
+<h3 id="span-classtype-idget_slaves_numberunsigned-intspan-ftop_get_slaves_numberspan-classtypefttxt2-spandevice"><span class="type" id="get_slaves_number">unsigned int</span> ftop_get_slaves_number(<span class="type">fttxt2 *</span>device)</h3>
+<p>Returns the number of slave TXTs in the network.</p>
+<table>
+<thead>
+<tr>
+<th id="type">Type</th>
+<th id="paremeter">Paremeter</th>
+<th id="description">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>in</em></td>
+<td><strong>device</strong></td>
+<td>pointer to TXT</td>
+</tr>
+</tbody>
+</table>
+<p>Return:  <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;number of slaves</p>
+<h3 id="span-classtype-idget_txt_uiduint32_tspan-ftop_get_txt_uidspan-classtypefttxt2-spandevice-span-classtypeunsigned-intspan-number"><span class="type" id="get_txt_uid">uint32_t</span> ftop_get_txt_uid(<span class="type">fttxt2 *</span>device, <span class="type">unsigned int</span> number)</h3>
+<p>Returns the uid for the TXT with the given network id.</p>
+<table>
+<thead>
+<tr>
+<th id="type">Type</th>
+<th id="paremeter">Paremeter</th>
+<th id="description">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>in</em></td>
+<td><strong>device</strong></td>
+<td>pointer to master TXT</td>
+</tr>
+<tr>
+<td><em>in</em></td>
+<td><strong>number</strong></td>
+<td>network id</td>
+</tr>
+</tbody>
+</table>
+<p>Return:  <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;slave's uid</p>
+<h3 id="span-classtype-idget_txt_nameconst-char-spanftop_get_txt_namespan-classtypefttxt2-spandevice-span-classtypeunsigned-intspan-number"><span class="type" id="get_txt_name">const char *</span>ftop_get_txt_name(<span class="type">fttxt2 *</span>device, <span class="type">unsigned int</span> number)</h3>
+<p>Returns the name for the TXT with the given network id.</p>
+<table>
+<thead>
+<tr>
+<th id="type">Type</th>
+<th id="paremeter">Paremeter</th>
+<th id="description">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>in</em></td>
+<td><strong>device</strong></td>
+<td>pointer to master TXT</td>
+</tr>
+<tr>
+<td><em>in</em></td>
+<td><strong>number</strong></td>
+<td>network id</td>
+</tr>
+</tbody>
+</table>
+<p>Return:  <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;slave's name</p>
+<h3 id="span-classtype-idget_txt_snconst-char-spanftop_get_txt_snspan-classtypefttxt2-spandevice-span-classtypeunsigned-intspan-number"><span class="type" id="get_txt_SN">const char *</span>ftop_get_txt_SN(<span class="type">fttxt2 *</span>device, <span class="type">unsigned int</span> number)</h3>
+<p>Returns the serial number for the TXT with the given network id.</p>
+<table>
+<thead>
+<tr>
+<th id="type">Type</th>
+<th id="paremeter">Paremeter</th>
+<th id="description">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>in</em></td>
+<td><strong>device</strong></td>
+<td>pointer to master TXT</td>
+</tr>
+<tr>
+<td><em>in</em></td>
+<td><strong>number</strong></td>
+<td>network id</td>
+</tr>
+</tbody>
+</table>
+<p>Return:  <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;slave's serial number</p>
+<h3 id="span-classtype-idtxt_modevoidspan-ftop_txt_modespan-classtypefttxt2-spandevice-span-classtypeintspan-mode"><span class="type" id="txt_mode">void</span> ftop_txt_mode(<span class="type">fttxt2 *</span>device, <span class="type">int</span> mode)</h3>
+<p>Sets or changes the TXT's mode. Pass 0 for single mode, 1 for master mode and
+2 for slave mode (see <a href="c_fttypes.html#ft_txt_mode">ft_txt_mode</a> enum).</p>
+<table>
+<thead>
+<tr>
+<th id="type">Type</th>
+<th id="paremeter">Paremeter</th>
+<th id="description">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>in</em></td>
+<td><strong>device</strong></td>
+<td>pointer to master TXT</td>
+</tr>
+<tr>
+<td><em>in</em></td>
+<td><strong>mode</strong></td>
+<td>new mode</td>
+</tr>
+</tbody>
+</table>
+<h3 id="span-classtype-idtxt_namevoidspan-ftop_txt_namespan-classtypefttxt2-spandevice-span-classtypeconst-char-spanmode"><span class="type" id="txt_name">void</span> ftop_txt_name(<span class="type">fttxt2 *</span>device, <span class="type">const char *</span>mode)</h3>
+<p>Sets new name for the TXT. A name is a 16 character string. The name can shorter.</p>
+<table>
+<thead>
+<tr>
+<th id="type">Type</th>
+<th id="paremeter">Paremeter</th>
+<th id="description">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>in</em></td>
+<td><strong>device</strong></td>
+<td>pointer to master TXT</td>
+</tr>
+<tr>
+<td><em>in</em></td>
+<td><strong>name</strong></td>
+<td>new name</td>
+</tr>
+</tbody>
+</table>
+<br>
+        </div>
+    </body>
+</html>

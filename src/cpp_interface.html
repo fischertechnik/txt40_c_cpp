@@ -1,0 +1,1645 @@
+<html>
+    <head>
+        <title>C++ API Reference</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="../css/github-markdown.css">
+        <link rel="stylesheet" href="../css/main.css">
+        <script>
+            function closeMenu() {
+                document.getElementById("menu-title").style.display = "block"
+                document.getElementById("menu-close").style.display = "none"
+                document.getElementById("menu").style.display = "none"
+
+            }
+
+            function showMenu() {
+                document.getElementById("menu-title").style.display = "none"
+                document.getElementById("menu-close").style.display = "block"
+                document.getElementById("menu").style.display = "block"
+            }
+        </script>
+    </head>
+
+    <body>
+        <header class="frame menu-bar">
+            <div class="menu-control link" style="position: absolute; left: 0px;" onclick="showMenu()">≡</div>
+            <h2 class="link" onclick="location.href='../index.html';">TXT 4.0</h2>
+        </header>
+        <div class="frame menu" id="menu" style="display: none;">
+            <h2 class="link" id="menu-title" style="text-align: center;" onclick="location.href='../index.html';">TXT 4.0</h2>
+            <div class="menu-control link", id="menu-close" style="display: none;" onclick="closeMenu()">×</div>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="getting_started.html">Getting Started</a></li>
+                <li><a href="devices.html">Devices</a></li>
+                <li><a href="cpp_interface.html" class="active">C++ Interface</a></li>
+                <li><a href="c_interface.html">C Interface</a></li>
+            </ul>
+        </div>
+
+        <div class="markdown-body">
+            <h1 id="c-api">C++ API</h1>
+            <p>The C++ API, available via the header ft.hpp, implements classes for all devices defined by the C interface.</p>
+            <table>
+            <thead>
+            <tr>
+            <th id="classes">Classes</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+            <td><a href="#device">Device</a></td>
+            </tr>
+            <tr>
+            <td><a href="#inputdevice">InputDevice</a></td>
+            </tr>
+            <tr>
+            <td><a href="#switch">Switch</a></td>
+            </tr>
+            <tr>
+            <td><a href="#digital">Digital</a></td>
+            </tr>
+            <tr>
+            <td><a href="#resistor">Resistor</a></td>
+            </tr>
+            <tr>
+            <td><a href="#voltmeter">Voltmeter</a></td>
+            </tr>
+            <tr>
+            <td><a href="#ultrasonic">Ultrasonic</a></td>
+            </tr>
+            <tr>
+            <td><a href="#ncttermistor">NCTTermistor</a></td>
+            </tr>
+            <tr>
+            <td><a href="#colorsensor">ColorSensor</a></td>
+            </tr>
+            <tr>
+            <td><a href="#trailfollower">TrailFollower</a></td>
+            </tr>
+            <tr>
+            <td><a href="#counter">Counter</a></td>
+            </tr>
+            <tr>
+            <td><a href="#lamp">Lamp</a></td>
+            </tr>
+            <tr>
+            <td><a href="#servo">Servo</a></td>
+            </tr>
+            <tr>
+            <td><a href="#motordevice">MotorDevice</a></td>
+            </tr>
+            <tr>
+            <td><a href="#motor">Motor</a></td>
+            </tr>
+            <tr>
+            <td><a href="#encoder">Encoder</a></td>
+            </tr>
+            <tr>
+            <td><a href="#txt">TXT</a></td>
+            </tr>
+            </tbody>
+            </table>
+            <h2 id="device">Device</h2>
+            <p>Base class for all devices.</p>
+            <table>
+                <tr>
+                    <th>Method</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td><a href="#device-getConn"><span class="type">int</span> getConn()</a></td>
+                    <td><a href="#device-getConn">Return device connector.</a></td>
+                </tr>
+            </table>
+            <h3 id="methods">Methods</h3>
+            <h4 id="device-getConn"><span class="type">int</span> getConn()</h4>
+            <p>Returns the device's connection number. See <a href="C_fttypes.html#ftobjects_connection">ftobjects_connection</a>
+            for details.</p>
+            <h2 id="inputdevice">InputDevice</h2>
+            <p><h3> Extends Device </h4></p>
+            <p>Base class for various sensors.</p>
+            <table>
+                <tr>
+                    <th>Method</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td><a href="#inputDevice-getState"><span class="type">int</span> getState()</a></td>
+                    <td><a href="#inputDevice-getState">Return value or state.</a></td>
+                </tr>
+                <tr>
+                    <td><a href="#inputDevice-extendRange"><span class="type">void</span> extendRange(<span class="type">unsigned int</span> mode)</a></td>
+                    <td><a href="#inputDevice-extendRange">Set input range mode.</a></td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="text-align:center;"><b>Inherited Methods</b></td>
+                </tr>
+                <tr>
+                    <td><a href="#device-getConn"><span class="type">int</span> getConn()</a></td>
+                    <td><a href="#device-getConn">Return device connector.</a></td>
+                </tr>
+            </table>
+            <h3 id="methods-1">Methods</h3>
+            <h4 id="inputDevice-getState"><span class="type">int</span> getState()</h4>
+            <p>Returns the 'state' for universal input devices. For digital devices, the state is
+            returned, for analog devices, the analog value is returned and for counters the
+            current step count is returned.</p>
+            <h4 id="inputDevice-extendRange"><span class="type">void</span> extendRange(<span class="type">unsigned int</span> mode)</h4>
+            <p>Sets the inputs detection range. Pass <em>0</em> for normal detection range (0 - 5 V) and <em>1</em> for extended range (0 - 9 V).</p>
+            <table>
+            <thead>
+            <tr>
+            <th id="parameter">Parameter</th>
+            <th id="description">Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+            <td>mode</td>
+            <td>input range</td>
+            </tr>
+            </tbody>
+            </table>
+            <h2 id="switch">Switch</h2>
+            <p><h3> Extends InputDevice </h4></p>
+            <p>Implementation of a generic <a href="devices.html#switch">switch</a>.</p>
+            <table>
+                <tr>
+                    <th>Method</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td><a href="#switch-ctor">Switch(<span class="type">TXT &</span>txt, <span class="type">int</span> input)</a></td>
+                    <td><a href="#switch-ctor">Constructor</a></td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="text-align:center;"><b>Inherited Methods</b></td>
+                </tr>
+                <tr>
+                    <td><a href="#inputDevice-getState"><span class="type">int</span> getState()</a></td>
+                    <td><a href="#inputDevice-getState">Return value or state.</a></td>
+                </tr>
+                <tr>
+                    <td><a href="#inputDevice-extendRange"><span class="type">void</span> extendRange(<span class="type">unsigned int</span> mode)</a></td>
+                    <td><a href="#inputDevice-extendRange">Set input range mode.</a></td>
+                </tr>
+                <tr>
+                    <td><a href="#device-getConn"><span class="type">int</span> getConn()</a></td>
+                    <td><a href="#device-getConn">Return device connector.</a></td>
+                </tr>
+            </table>
+            <h3 id="methods-2">Methods</h3>
+            <h4 id="switch-ctor">Switch(<span class="type">TXT &</span>txt, <span class="type">int</span> input)</h4>
+            <p>Constructor for the Switch class. Takes a reference to a TXT instance and an input pin number as arguments.
+            For the switch instance to be usable, one has to call the <a href="#txt-update_config"><em>update_config</em></a> method on the TXT.</p>
+            <p><em>Note</em>: The pin number starts at 1!</p>
+            <table>
+            <thead>
+            <tr>
+            <th id="parameter">Parameter</th>
+            <th id="description">Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+            <td>txt</td>
+            <td>reference to TXT object</td>
+            </tr>
+            <tr>
+            <td>input</td>
+            <td>pin number [<em>1-8</em>]</td>
+            </tr>
+            </tbody>
+            </table>
+            <h2 id="digital">Digital</h2>
+            <p><h3> Extends InputDevice </h4></p>
+            <p>Implementation of a generic <a href="devices.html#digital">digital sensor</a>.</p>
+            <table>
+                <tr>
+                    <th>Method</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td><a href="#digital-ctor">Digital(<span class="type">TXT &</span>txt, <span class="type">int</span> input)</a></td>
+                    <td><a href="#digital-ctor">Constructor</a></td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="text-align:center;"><b>Inherited Methods</b></td>
+                </tr>
+                <tr>
+                    <td><a href="#inputDevice-getState"><span class="type">int</span> getState()</a></td>
+                    <td><a href="#inputDevice-getState">Return value or state.</a></td>
+                </tr>
+                <tr>
+                    <td><a href="#inputDevice-extendRange"><span class="type">void</span> extendRange(<span class="type">unsigned int</span> mode)</a></td>
+                    <td><a href="#inputDevice-extendRange">Set input range mode.</a></td>
+                </tr>
+                <tr>
+                    <td><a href="#device-getConn"><span class="type">int</span> getConn()</a></td>
+                    <td><a href="#device-getConn">Return device connector.</a></td>
+                </tr>
+            </table>
+            <h3 id="methods-3">Methods</h3>
+            <h4 id="digital-ctor">Digital(<span class="type">TXT &</span>txt, <span class="type">int</span> input)</h4>
+            <p>Constructor for the Digital class. Takes a reference to a TXT instance and an input pin number as arguments.
+            For the digital instance to be usable, one has to call the <a href="#txt-update_config"><em>update_config</em></a> method on the TXT.</p>
+            <p><em>Note</em>: The pin number starts at 1!</p>
+            <table>
+            <thead>
+            <tr>
+            <th id="parameter">Parameter</th>
+            <th id="description">Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+            <td>txt</td>
+            <td>reference to TXT object</td>
+            </tr>
+            <tr>
+            <td>input</td>
+            <td>pin number [<em>1-8</em>]</td>
+            </tr>
+            </tbody>
+            </table>
+            <h2 id="resistor">Resistor</h2>
+            <p><h3> Extends InputDevice </h4></p>
+            <p>Implementation of a generic <a href="devices.html#resistor">resistor</a>.</p>
+            <table>
+                <tr>
+                    <th>Method</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td><a href="#resistor-ctor">Resistor(<span class="type">TXT &</span>txt, <span class="type">int</span> input)</a></td>
+                    <td><a href="#resistor-ctor">Constructor</a></td>
+                </tr>
+                <tr>
+                    <td><a href="#resistor-getResistance"><span class="type">int</span> getResistance()</a></td>
+                    <td><a href="#resistor-getResistance">Return resistance.</a></td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="text-align:center;"><b>Inherited Methods</b></td>
+                </tr>
+                <tr>
+                    <td><a href="#inputDevice-getState"><span class="type">int</span> getState()</a></td>
+                    <td><a href="#inputDevice-getState">Return value or state.</a></td>
+                </tr>
+                <tr>
+                    <td><a href="#inputDevice-extendRange"><span class="type">void</span> extendRange(<span class="type">unsigned int</span> mode)</a></td>
+                    <td><a href="#inputDevice-extendRange">Set input range mode.</a></td>
+                </tr>
+                <tr>
+                    <td><a href="#device-getConn"><span class="type">int</span> getConn()</a></td>
+                    <td><a href="#device-getConn">Return device connector.</a></td>
+                </tr>
+            </table>
+            <h3 id="methods-4">Methods</h3>
+            <h4 id="resistor-ctor">Resistor(<span class="type">TXT &</span>txt, <span class="type">int</span> input)</h4>
+            <p>Constructor for the Resistor class. Takes a reference to a TXT instance and an input pin number as arguments.
+            For the resistor instance to be usable, one has to call the <a href="#txt-update_config"><em>update_config</em></a> method on the TXT.</p>
+            <p><em>Note</em>: The pin number starts at 1!</p>
+            <table>
+            <thead>
+            <tr>
+            <th id="parameter">Parameter</th>
+            <th id="description">Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+            <td>txt</td>
+            <td>reference to TXT object</td>
+            </tr>
+            <tr>
+            <td>input</td>
+            <td>pin number [<em>1-8</em>]</td>
+            </tr>
+            </tbody>
+            </table>
+            <h4 id="resistor-getResistance"><span class="type">int</span> getResistance()</h4>
+            <p>Calculates and returns the resistance in <em>Ω</em>.</p>
+            <h2 id="voltmeter">Voltmeter</h2>
+            <p><h3> Extends InputDevice </h4></p>
+            <p>Implementation of a generic <a href="devices.html#voltmeter">voltmeter</a>.</p>
+            <table>
+                <tr>
+                    <th>Method</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td><a href="#voltmeter-ctor">Voltmeter(<span class="type">TXT &</span>txt, <span class="type">int</span> input)</a></td>
+                    <td><a href="#voltmeter-ctor">Constructor</a></td>
+                </tr>
+                <tr>
+                    <td><a href="#voltmeter-getVoltage"><span class="type">int</span> getVoltage()</a></td>
+                    <td><a href="#voltmeter-getVoltage">Return voltage.</a></td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="text-align:center;"><b>Inherited Methods</b></td>
+                </tr>
+                <tr>
+                    <td><a href="#inputDevice-getState"><span class="type">int</span> getState()</a></td>
+                    <td><a href="#inputDevice-getState">Return value or state.</a></td>
+                </tr>
+                <tr>
+                    <td><a href="#inputDevice-extendRange"><span class="type">void</span> extendRange(<span class="type">unsigned int</span> mode)</a></td>
+                    <td><a href="#inputDevice-extendRange">Set input range mode.</a></td>
+                </tr>
+                <tr>
+                    <td><a href="#device-getConn"><span class="type">int</span> getConn()</a></td>
+                    <td><a href="#device-getConn">Return device connector.</a></td>
+                </tr>
+            </table>
+            <h3 id="methods-5">Methods</h3>
+            <h4 id="voltmeter-ctor">Voltmeter(<span class="type">TXT &</span>txt, <span class="type">int</span> input)</h4>
+            <p>Constructor for the Voltmeter class. Takes a reference to a TXT instance and an input pin number as arguments.
+            For the voltmeter instance to be usable, one has to call the <a href="#txt-update_config"><em>update_config</em></a> method on the TXT.</p>
+            <p><em>Note</em>: The pin number starts at 1!</p>
+            <table>
+            <thead>
+            <tr>
+            <th id="parameter">Parameter</th>
+            <th id="description">Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+            <td>txt</td>
+            <td>reference to TXT object</td>
+            </tr>
+            <tr>
+            <td>input</td>
+            <td>pin number [<em>1-8</em>]</td>
+            </tr>
+            </tbody>
+            </table>
+            <h4 id="voltmeter-getVoltage"><span class="type">int</span> getVoltage()</h4>
+            <p>Returns the voltage in <em>mV</em>.</p>
+            <h2 id="ultrasonic">Ultrasonic</h2>
+            <p><h3> Extends InputDevice </h4></p>
+            <p>Implementation of fischertechnik's <a href="devices.html#ultrasonic">ultrasonic distance sensor</a>.</p>
+            <table>
+                <tr>
+                    <th>Method</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td><a href="#ultrasonic-ctor">Ultrasonic(<span class="type">TXT &</span>txt, <span class="type">int</span> input)</a></td>
+                    <td><a href="#ultrasonic-ctor">Constructor</a></td>
+                </tr>
+                <tr>
+                    <td><a href="#ultrasonic-getDistance"><span class="type">int</span> getDistance()</a></td>
+                    <td><a href="#ultrasonic-getDistance">Return distance.</a></td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="text-align:center;"><b>Inherited Methods</b></td>
+                </tr>
+                <tr>
+                    <td><a href="#inputDevice-getState"><span class="type">int</span> getState()</a></td>
+                    <td><a href="#inputDevice-getState">Return value or state.</a></td>
+                </tr>
+                <tr>
+                    <td><a href="#inputDevice-extendRange"><span class="type">void</span> extendRange(<span class="type">unsigned int</span> mode)</a></td>
+                    <td><a href="#inputDevice-extendRange">Set input range mode.</a></td>
+                </tr>
+                <tr>
+                    <td><a href="#device-getConn"><span class="type">int</span> getConn()</a></td>
+                    <td><a href="#device-getConn">Return device connector.</a></td>
+                </tr>
+            </table>
+            <h3 id="methods-6">Methods</h3>
+            <h4 id="ultrasonic-ctor">Ultrasonic(<span class="type">TXT &</span>txt, <span class="type">int</span> input)</h4>
+            <p>Constructor for the Ultrasonic class. Takes a reference to a TXT instance and an input pin number as arguments.
+            For the ultrasonic instance to be usable, one has to call the <a href="#txt-update_config"><em>update_config</em></a> method on the TXT.</p>
+            <p><em>Note</em>: The pin number starts at 1!</p>
+            <table>
+            <thead>
+            <tr>
+            <th id="parameter">Parameter</th>
+            <th id="description">Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+            <td>txt</td>
+            <td>reference to TXT object</td>
+            </tr>
+            <tr>
+            <td>input</td>
+            <td>pin number [<em>1-8</em>]</td>
+            </tr>
+            </tbody>
+            </table>
+            <h4 id="ultrasonic-getDistance"><span class="type">int</span> getDistance()</h4>
+            <p>Returns the current distance in <em>cm</em>.</p>
+            <h2 id="ncttermistor">NCTTermistor</h2>
+            <p><h3> Extends InputDevice </h4></p>
+            <p>Implementation of the fischertechnik 1,5 kΩ <a href="devices.html#ntc-thermistor">NTC</a>.</p>
+            <table>
+                <tr>
+                    <th>Method</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td><a href="#ntc-ctor">NCTTermistor(<span class="type">TXT &</span>txt, <span class="type">int</span> input)</a></td>
+                    <td><a href="#ntc-ctor">Constructor</a></td>
+                </tr>
+                <tr>
+                    <td><a href="#ntc-getTemperature"><span class="type">int</span> getTemperature()</a></td>
+                    <td><a href="#ntc-getTemperature">Return temperature.</a></td>
+                </tr>
+                <tr>
+                    <td><a href="#ntc-getResistance"><span class="type">int</span> getResistance()</a></td>
+                    <td><a href="#ntc-getResistance">Return resistance.</a></td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="text-align:center;"><b>Inherited Methods</b></td>
+                </tr>
+                <tr>
+                    <td><a href="#inputDevice-getState"><span class="type">int</span> getState()</a></td>
+                    <td><a href="#inputDevice-getState">Return value or state.</a></td>
+                </tr>
+                <tr>
+                    <td><a href="#inputDevice-extendRange"><span class="type">void</span> extendRange(<span class="type">unsigned int</span> mode)</a></td>
+                    <td><a href="#inputDevice-extendRange">Set input range mode.</a></td>
+                </tr>
+                <tr>
+                    <td><a href="#device-getConn"><span class="type">int</span> getConn()</a></td>
+                    <td><a href="#device-getConn">Return device connector.</a></td>
+                </tr>
+            </table>
+            <h3 id="methods-7">Methods</h3>
+            <h4 id="ntc-ctor">NCTTermistor(<span class="type">TXT &</span>txt, <span class="type">int</span> input)</h4>
+            <p>Constructor for the NCTTermistor class. Takes a reference to a TXT instance and an input pin number as arguments.
+            For the ncttermistor instance to be usable, one has to call the <a href="#txt-update_config"><em>update_config</em></a> method on the TXT.</p>
+            <p><em>Note</em>: The pin number starts at 1!</p>
+            <table>
+            <thead>
+            <tr>
+            <th id="parameter">Parameter</th>
+            <th id="description">Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+            <td>txt</td>
+            <td>reference to TXT object</td>
+            </tr>
+            <tr>
+            <td>input</td>
+            <td>pin number [<em>1-8</em>]</td>
+            </tr>
+            </tbody>
+            </table>
+            <h4 id="ntc-getTemperature"><span class="type">int</span> getTemperature()</h4>
+            <p>Calculates and returns the temperature in <em>°C</em> for the fischertechnik 1,5 <em>kΩ</em> NTC using the beta-model.</p>
+            <p><em>Note</em>: This calculation provides correct results for <strong>THIS</strong> NTC only. For different thermistors,
+            the user must implement their own function to calculate the temperature from the resistance.</p>
+            <h4 id="ntc-getResistance"><span class="type">int</span> getResistance()</h4>
+            <p>Calculates and returns the resistance in <em>Ω</em>.</p>
+            <h2 id="colorsensor">ColorSensor</h2>
+            <p><h3> Extends InputDevice </h4></p>
+            <p>Implementation of the fischertechnik <a href="devices.html#colorsensor">color sensor</a>.</p>
+            <p><em>Note</em>: The color sensor does NOT implement a special functions to return the color;
+            use <a href="#inputDevice-getState"><em>getState()</em></a> to obtain the analog value in <em>mV</em>.</p>
+            <table>
+                <tr>
+                    <th>Method</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td><a href="#colorSensor-ctor">ColorSensor(<span class="type">TXT &</span>txt, <span class="type">int</span> input)</a></td>
+                    <td><a href="#colorSensor-ctor">Constructor</a></td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="text-align:center;"><b>Inherited Methods</b></td>
+                </tr>
+                <tr>
+                    <td><a href="#inputDevice-getState"><span class="type">int</span> getState()</a></td>
+                    <td><a href="#inputDevice-getState">Return value or state.</a></td>
+                </tr>
+                <tr>
+                    <td><a href="#inputDevice-extendRange"><span class="type">void</span> extendRange(<span class="type">unsigned int</span> mode)</a></td>
+                    <td><a href="#inputDevice-extendRange">Set input range mode.</a></td>
+                </tr>
+                <tr>
+                    <td><a href="#device-getConn"><span class="type">int</span> getConn()</a></td>
+                    <td><a href="#device-getConn">Return device connector.</a></td>
+                </tr>
+            </table>
+            <h3 id="methods-8">Methods</h3>
+            <h4 id="colorSensor-ctor">ColorSensor(<span class="type">TXT &</span>txt, <span class="type">int</span> input)</h4>
+            <p>Constructor for the ColorSensor class. Takes a reference to a TXT instance and an input pin number as arguments.
+            For the color sensor instance to be usable, one has to call the <a href="#txt-update_config"><em>update_config</em></a> method on the TXT.</p>
+            <p><em>Note</em>: The pin number starts at 1!</p>
+            <table>
+            <thead>
+            <tr>
+            <th id="parameter">Parameter</th>
+            <th id="description">Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+            <td>txt</td>
+            <td>reference to TXT object</td>
+            </tr>
+            <tr>
+            <td>input</td>
+            <td>pin number [<em>1-8</em>]</td>
+            </tr>
+            </tbody>
+            </table>
+            <h2 id="trailfollower">TrailFollower</h2>
+            <p><h3> Extends InputDevice </h4></p>
+            <p>Implenentation of fischertechnik's <a href="devices.html#trailfollower">trail sensor</a>.</p>
+            <table>
+                <tr>
+                    <th>Method</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td><a href="#trailFollower-ctor">TrailFollower(<span class="type">TXT &</span>txt, <span class="type">int</span> input)</a></td>
+                    <td><a href="#trailFollower-ctor">Constructor</a></td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="text-align:center;"><b>Inherited Methods</b></td>
+                </tr>
+                <tr>
+                    <td><a href="#inputDevice-getState"><span class="type">int</span> getState()</a></td>
+                    <td><a href="#inputDevice-getState">Return value or state.</a></td>
+                </tr>
+                <tr>
+                    <td><a href="#inputDevice-extendRange"><span class="type">void</span> extendRange(<span class="type">unsigned int</span> mode)</a></td>
+                    <td><a href="#inputDevice-extendRange">Set input range mode.</a></td>
+                </tr>
+                <tr>
+                    <td><a href="#device-getConn"><span class="type">int</span> getConn()</a></td>
+                    <td><a href="#device-getConn">Return device connector.</a></td>
+                </tr>
+            </table>
+            <h3 id="methods-9">Methods</h3>
+            <h4 id="trailFollower-ctor">ColorSensor(<span class="type">TXT &</span>txt, <span class="type">int</span> input)</h4>
+            <p>Constructor for the TrailFollower class. Takes a reference to a TXT instance and an input pin number as arguments.
+            For the trail follower instance to be usable, one has to call the <a href="#txt-update_config"><em>update_config</em></a> method on the TXT.</p>
+            <p><em>Note</em>: The pin number starts at 1!</p>
+            <table>
+            <thead>
+            <tr>
+            <th id="parameter">Parameter</th>
+            <th id="description">Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+            <td>txt</td>
+            <td>reference to TXT object</td>
+            </tr>
+            <tr>
+            <td>input</td>
+            <td>pin number [<em>1-8</em>]</td>
+            </tr>
+            </tbody>
+            </table>
+            <h2 id="counter">Counter</h2>
+            <p><h3> Extends Device </h4></p>
+            <p>Implementation of a fast <a href="devices.html#counter">counter</a> device.</p>
+            <table>
+                <tr>
+                    <th>Method</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td><a href="#counter-ctor">Counter(<span class="type">TXT &</span>txt, <span class="type">int</span> input)</a></td>
+                    <td><a href="#counter-ctor">Constructor</a></td>
+                </tr>
+                <tr>
+                    <td><a href="#counter-getState"><span class="type">int</span> getState()</a></td>
+                    <td><a href="#counter-getState">Return counter state.</a></td>
+                </tr>
+                <tr>
+                    <td><a href="#counter-getDistance"><span class="type">int</span> getDistance()</a></td>
+                    <td><a href="#counter-getDistance">Return distance.</a></td>
+                </tr>
+                <tr>
+                    <td><a href="#counter-reset"><span class="type">void</span> reset()</a></td>
+                    <td><a href="#counter-reset">Reset counter.</a></td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="text-align:center;"><b>Inherited Methods</b></td>
+                </tr>
+                <tr>
+                    <td><a href="#device-getConn"><span class="type">int</span> getConn()</a></td>
+                    <td><a href="#device-getConn">Return device connector.</a></td>
+                </tr>
+            </table>
+            <h3 id="methods-10">Methods</h3>
+            <h4 id="counter-ctor">Counter(<span class="type">TXT &</span>txt, <span class="type">int</span> input)</h4>
+            <p>Constructor for the Counter class. Takes a reference to a TXT instance and an input pin number as arguments.
+            For the counter instance to be usable, one has to call the <a href="#txt-update_config"><em>update_config</em></a> method on the TXT.</p>
+            <p><em>Note</em>: The pin number starts at 1!</p>
+            <table>
+            <thead>
+            <tr>
+            <th id="parameter">Parameter</th>
+            <th id="description">Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+            <td>txt</td>
+            <td>reference to TXT object</td>
+            </tr>
+            <tr>
+            <td>input</td>
+            <td>pin number [<em>1-4</em>]</td>
+            </tr>
+            </tbody>
+            </table>
+            <h4 id="counter-getState"><span class="type">int</span> getState()</h4>
+            <p>Returns the counter's state. Returns <em>0</em> if the switch is pressed (cuircit is closed) and <em>1</em> if the
+            switch is released (cuircit is open).</p>
+            <h4 id="counter-getDistance"><span class="type">int</span> getDistance()</h4>
+            <p>Returns the distance. The distance is the number of pulses (counts) since the last reset.</p>
+            <h4 id="counter-reset"><span class="type">int</span> reset()</h4>
+            <p>Resets the count number.</p>
+            <p><em>Note</em>: This reset is not in effect immediately since this function requires communication with the M4.</p>
+            <h2 id="lamp">Lamp</h2>
+            <p><h3> Extends Device </h4></p>
+            <p>Implementation of an <a href="devices.html#output-lamp">output</a> device.</p>
+            <table>
+                <tr>
+                    <th>Method</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td><a href="#lamp-ctor">Lamp(<span class="type">TXT &</span>txt, <span class="type">int</span> output)</a></td>
+                    <td><a href="#lamp-ctor">Constructor</a></td>
+                </tr>
+                <tr>
+                    <td><a href="#lamp-setBrightness"><span class="type">void</span> setBrightness(<span class="type">unsigned int</span> brightness)</a></td>
+                    <td><a href="#lamp-setBrightness">Set output (brightness) to new value.</a></td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="text-align:center;"><b>Inherited Methods</b></td>
+                </tr>
+                <tr>
+                    <td><a href="#device-getConn"><span class="type">int</span> getConn()</a></td>
+                    <td><a href="#device-getConn">Return device connector.</a></td>
+                </tr>
+            </table>
+            <h3 id="methods-11">Methods</h3>
+            <h4 id="lamp-ctor">Lamp(<span class="type">TXT &</span>txt, <span class="type">int</span> output)</h4>
+            <p>Constructor for the Lamp class. Takes a reference to a TXT instance and an output pin number as arguments.
+            For the lamp instance to be usable, one has to call the <a href="#txt-update_config"><em>update_config</em></a> method on the TXT.</p>
+            <p><em>Note</em>: The pin number starts at 1!</p>
+            <table>
+            <thead>
+            <tr>
+            <th id="parameter">Parameter</th>
+            <th id="description">Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+            <td>txt</td>
+            <td>reference to TXT object</td>
+            </tr>
+            <tr>
+            <td>output</td>
+            <td>pin number [<em>1-8</em>]</td>
+            </tr>
+            </tbody>
+            </table>
+            <h4 id="lamp-setBrightness"><span class="type">void</span> setBrightness(<span class="type">unsigned int</span> brightness)</h4>
+            <p>Sets the PWM value (brightness) for outputs.</p>
+            <table>
+            <thead>
+            <tr>
+            <th id="parameter">Parameter</th>
+            <th id="description">Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+            <td>brightness</td>
+            <td>new PWM value [<em>0, 512</em>]</td>
+            </tr>
+            </tbody>
+            </table>
+            <h2 id="servo">Servo</h2>
+            <p><h3> Extends Device </h4></p>
+            <p>Implementation of a <a href="devices.html#servo">servo motor</a>.</p>
+            <table>
+                <tr>
+                    <th>Method</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td><a href="#servo-ctor">Servo(<span class="type">TXT &</span>txt, <span class="type">int</span> output)</a></td>
+                    <td><a href="#servo-ctor">Constructor</a></td>
+                </tr>
+                <tr>
+                    <td><a href="#servo-setPwm"><span class="type">void</span> setPwm(<span class="type">int</span> pwm)</a></td>
+                    <td><a href="#servo-setPwm">Set the PWM value.</a></td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="text-align:center;"><b>Inherited Methods</b></td>
+                </tr>
+                <tr>
+                    <td><a href="#device-getConn"><span class="type">int</span> getConn()</a></td>
+                    <td><a href="#device-getConn">Return device connector.</a></td>
+                </tr>
+            </table>
+            <h3 id="methods-12">Methods</h3>
+            <h4 id="servo-ctor">Servo(<span class="type">TXT &</span>txt, <span class="type">int</span> output)</h4>
+            <p>Constructor for the Servo class. Takes a reference to a TXT instance and an output pin number as arguments.
+            For the servo instance to be usable, one has to call the <a href="#txt-update_config"><em>update_config</em></a> method on the TXT.</p>
+            <p><em>Note</em>: The pin number starts at 1!</p>
+            <table>
+            <thead>
+            <tr>
+            <th id="parameter">Parameter</th>
+            <th id="description">Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+            <td>txt</td>
+            <td>reference to TXT object</td>
+            </tr>
+            <tr>
+            <td>output</td>
+            <td>pin number [<em>1-3</em>]</td>
+            </tr>
+            </tbody>
+            </table>
+            <h4 id="servo-setPwm"><span class="type">void</span> setPwm(<span class="type">int</span> pwm)</h4>
+            <p>Sets the PWM value for servo. PWM = <em>256</em> sets the servo to its central position.</p>
+            <table>
+            <thead>
+            <tr>
+            <th id="parameter">Parameter</th>
+            <th id="description">Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+            <td>pwm</td>
+            <td>new PWM value [<em>0, 512</em>]</td>
+            </tr>
+            </tbody>
+            </table>
+            <h2 id="motordevice">MotorDevice</h2>
+            <p><h3> Extends Device </h4></p>
+            <p>Base class for motors.</p>
+            <table>
+                <tr>
+                    <th>Method</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td><a href="#motor-setSpeed"><span class="type">void</span> setSpeed(<span class="type">int</span> speed)</a></td>
+                    <td><a href="#motor-setSpeed">Set new motor speed.</a></td>
+                </tr>
+                <tr>
+                    <td><a href="#motor-startSpeed"><span class="type">void</span> startSpeed(<span class="type">int</span> speed)</a></td>
+                    <td><a href="#motor-startSpeed">Start motor with new speed.</a></td>
+                </tr>
+                <tr>
+                    <td><a href="#motor-stop"><span class="type">void</span> stop()</a></td>
+                    <td><a href="#motor-stop">Stop motor immediately.</a></td>
+                </tr>
+                <tr>
+                    <td><a href="#motor-getMotor"><span class="type">int</span> getMotor()</a></td>
+                    <td><a href="#motor-getMotor">Return motor number (0-3).</a></td>
+                </tr>
+                <tr>
+                    <td><a href="#motor-coast"><span class="type">void</span> coast()</a></td>
+                    <td><a href="#motor-coast">Set motor in coast mode.</a></td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="text-align:center;"><b>Inherited Methods</b></td>
+                </tr>
+                <tr>
+                    <td><a href="#device-getConn"><span class="type">int</span> getConn()</a></td>
+                    <td><a href="#device-getConn">Return device connector.</a></td>
+                </tr>
+            </table>
+            <h3 id="methods-13">Methods:</h3>
+            <h4 id="motor-setSpeed"><span class="type">void</span> setSpeed(<span class="type">int</span> speed)</h4>
+            <p>Sets a new speed value for the motor but <strong>DOES NOT</strong> start the motor.</p>
+            <table>
+            <thead>
+            <tr>
+            <th id="parameter">Parameter</th>
+            <th id="description">Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+            <td>speed</td>
+            <td>new speed value [<em>-512, 512</em>]</td>
+            </tr>
+            </tbody>
+            </table>
+            <h4 id="motor-startSpeed"><span class="type">void</span> startSpeed(<span class="type">int</span> speed)</h4>
+            <p>Starts the motor immediately at new speed.</p>
+            <table>
+            <thead>
+            <tr>
+            <th id="parameter">Parameter</th>
+            <th id="description">Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+            <td>speed</td>
+            <td>new speed value [<em>-512, 512</em>]</td>
+            </tr>
+            </tbody>
+            </table>
+            <h4 id="motor-stop"><span class="type">void</span> stop()</h4>
+            <p>Stops the motor immediately.</p>
+            <h4 id="motor-getMotor"><span class="type">int</span> getMotor()</h4>
+            <p>Returns the motor number [<em>0-3</em>].</p>
+            <h4 id="motor-coast"><span class="type">void</span> coast()</h4>
+            <p>Sets the motor in coast mode. This will not stop the motor immediately, but it will be turned off
+            with the next update cycle of the M4.</p>
+            <h2 id="motor">Motor</h2>
+            <p><h3> Extends MotorDevice </h4></p>
+            <p>Implementation of a regular <a href="devices.html#motor">motor</a>.</p>
+            <table>
+                <tr>
+                    <th>Method</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td><a href="#motor-ctor">Motor(<span class="type">TXT &</span>txt, <span class="type">int</span> output)</a></td>
+                    <td><a href="#motor-ctor">Constructor</a></td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="text-align:center;"><b>Inherited Methods</b></td>
+                </tr>
+                <tr>
+                    <td><a href="#motor-setSpeed"><span class="type">void</span> setSpeed(<span class="type">int</span> speed)</a></td>
+                    <td><a href="#motor-setSpeed">Set new motor speed.</a></td>
+                </tr>
+                <tr>
+                    <td><a href="#motor-startSpeed"><span class="type">void</span> startSpeed(<span class="type">int</span> speed)</a></td>
+                    <td><a href="#motor-startSpeed">Start motor with new speed.</a></td>
+                </tr>
+                <tr>
+                    <td><a href="#motor-stop"><span class="type">void</span> stop()</a></td>
+                    <td><a href="#motor-stop">Stop motor immediately.</a></td>
+                </tr>
+                <tr>
+                    <td><a href="#motor-getMotor"><span class="type">int</span> getMotor()</a></td>
+                    <td><a href="#motor-getMotor">Return motor number (0-3).</a></td>
+                </tr>
+                <tr>
+                    <td><a href="#motor-coast"><span class="type">void</span> coast()</a></td>
+                    <td><a href="#motor-coast">Set motor in coast mode.</a></td>
+                </tr>
+                <tr>
+                    <td><a href="#device-getConn"><span class="type">int</span> getConn()</a></td>
+                    <td><a href="#device-getConn">Return device connector.</a></td>
+                </tr>
+            </table>
+            <h3 id="methods-14">Methods</h3>
+            <h4 id="motor-ctor">Motor(<span class="type">TXT &</span>txt, <span class="type">int</span> output)</h4>
+            <p>Constructor for the Motor class. Takes a reference to a TXT instance and an output pin number as arguments.
+            For the motor instance to be usable, one has to call the <a href="#txt-update_config"><em>update_config</em></a> method on the TXT.</p>
+            <p><em>Note</em>: The pin number starts at 1!</p>
+            <table>
+            <thead>
+            <tr>
+            <th id="parameter">Parameter</th>
+            <th id="description">Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+            <td>txt</td>
+            <td>reference to TXT object</td>
+            </tr>
+            <tr>
+            <td>output</td>
+            <td>pin number [<em>1-4</em>]</td>
+            </tr>
+            </tbody>
+            </table>
+            <h2 id="encoder">Encoder</h2>
+            <p><h3> Extends MotorDevice </h4></p>
+            <p>Implementation of an <a href="devices.html#encoder">encoder motor</a>.</p>
+            <table>
+                <tr>
+                    <th>Method</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td><a href="#encoder-ctor">Encoder(<span class="type">TXT &</span>txt, <span class="type">int</span> output)</a></td>
+                    <td><a href="#encoder-ctor">Constructor</a></td>
+                </tr>
+                <tr>
+                    <td><a href="#encoder-startDistance1"><span class="type">void</span> startDistance(<span class="type">int</span> distance, <span class="type">Encoder</span> *e = 0)</a></td>
+                    <td><a href="#encoder-startDistance1">Start motor running for given distance.</a></td>
+                </tr>
+                <tr>
+                    <td><a href="#encoder-startDistance2"><span class="type">void</span> startDistance(<span class="type">int</span> distance, <span class="type">int</span> mask)</a></td>
+                    <td><a href="#encoder-startDistance2">Start up to 4 motors running synchronous for given distance.</a></td>
+                </tr>
+                <tr>
+                    <td><a href="#encoder-stop"><span class="type">void</span> stop(<span class="type">int</span> mask)</a></td>
+                    <td><a href="#encoder-stop">Stop up to 4 motors immediately.</a></td>
+                </tr>
+                <tr>
+                    <td><a href="#encoder-getCurrentDistance"><span class="type">int</span> getCurrentDistance()</a></td>
+                    <td><a href="#encoder-getCurrentDistance">Return the remaining distance.</a></td>
+                </tr>
+                <tr>
+                    <td><a href="#encoder-isRunning"><span class="type">bool</span> isRunning()</a></td>
+                    <td><a href="#encoder-isRunning">Return if the motor is still running.</a></td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="text-align:center;"><b>Inherited Methods</b></td>
+                </tr>
+                <tr>
+                    <td><a href="#motor-setSpeed"><span class="type">void</span> setSpeed(<span class="type">int</span> speed)</a></td>
+                    <td><a href="#motor-setSpeed">Set new motor speed.</a></td>
+                </tr>
+                <tr>
+                    <td><a href="#motor-startSpeed"><span class="type">void</span> startSpeed(<span class="type">int</span> speed)</a></td>
+                    <td><a href="#motor-startSpeed">Start motor with new speed.</a></td>
+                </tr>
+                <tr>
+                    <td><a href="#motor-stop"><span class="type">void</span> stop()</a></td>
+                    <td><a href="#motor-stop">Stop motor immediately.</a></td>
+                </tr>
+                <tr>
+                    <td><a href="#motor-getMotor"><span class="type">int</span> getMotor()</a></td>
+                    <td><a href="#motor-getMotor">Return motor number (0-3).</a></td>
+                </tr>
+                <tr>
+                    <td><a href="#motor-coast"><span class="type">void</span> coast()</a></td>
+                    <td><a href="#motor-coast">Set motor in coast mode.</a></td>
+                </tr>
+                <tr>
+                    <td><a href="#device-getConn"><span class="type">int</span> getConn()</a></td>
+                    <td><a href="#device-getConn">Return device connector.</a></td>
+                </tr>
+            </table>
+            <h3 id="methods-15">Methods</h3>
+            <h4 id="encoder-ctor">Encoder(<span class="type">TXT &</span>txt, <span class="type">int</span> output)</h4>
+            <p>Constructor for the Encoder class. Takes a reference to a TXT instance and an output pin number as arguments.
+            The encoder's counter has to be connected to the counter pin with the same number as the output
+            pin. For the encoder instance to be usable, one has to call the <a href="#txt-update_config"><em>update_config</em></a> method on the TXT.</p>
+            <p><em>Note</em>: The pin number starts at 1!</p>
+            <table>
+            <thead>
+            <tr>
+            <th id="parameter">Parameter</th>
+            <th id="description">Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+            <td>txt</td>
+            <td>reference to TXT object</td>
+            </tr>
+            <tr>
+            <td>output</td>
+            <td>pin number [<em>1-4</em>]</td>
+            </tr>
+            </tbody>
+            </table>
+            <h4 id="encoder-startDistance1"><span class="type">void</span> startDistance(<span class="type">int</span> distance, <span class="type">Encoder</span> *e = 0)</h4>
+            <p>Starts the encoder immediately to run for the given distance. A pointer to a second encoder
+            instance can be passed optionally. If the second encoder is provided, both motors run
+            sychronously.</p>
+            <p>The speed at which the motor(s) run must be set in advance by calling the
+            <a href="#motor-setSpeed"><em>setSpeed</em></a> method.</p>
+            <table>
+            <thead>
+            <tr>
+            <th id="parameter">Parameter</th>
+            <th id="description">Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+            <td>distance</td>
+            <td>distance in impulses</td>
+            </tr>
+            <tr>
+            <td>e</td>
+            <td>optional pointer for 2nd encoder</td>
+            </tr>
+            </tbody>
+            </table>
+            <h4 id="encoder-startDistance2"><span class="type">void</span> startDistance(<span class="type">int</span> distance, <span class="type">int</span> mask)</h4>
+            <p>Starts the encoders immediately to run synchronously for the given distance. The
+            encoders to be controlled are specified by the bit mask. The lowest 4 bits are
+            used to control the motor. If the n-th bit is 1, the encoder connected at the n-th
+            motor pin will be controlled. If the n-th bit is 0, the motor is ignored.</p>
+            <p>The speed at which the motor(s) run must be set in advance by calling the
+            <a href="#motor-setSpeed"><em>setSpeed</em></a> method.</p>
+            <table>
+            <thead>
+            <tr>
+            <th id="parameter">Parameter</th>
+            <th id="description">Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+            <td>distance</td>
+            <td>distance in impulses</td>
+            </tr>
+            <tr>
+            <td>mask</td>
+            <td>bit mask of up to 4 encoder motors</td>
+            </tr>
+            </tbody>
+            </table>
+            <h4 id="encoder-stop"><span class="type">void</span> stop(<span class="type">int</span> mask)</h4>
+            <p>Stops all motors selected by the bit mask immediatly.</p>
+            <table>
+            <thead>
+            <tr>
+            <th id="parameter">Parameter</th>
+            <th id="description">Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+            <td>mask</td>
+            <td>bit mask of up to 4 encoder motors</td>
+            </tr>
+            </tbody>
+            </table>
+            <h4 id="encoder-getCurrentDistance"><span class="type">int</span> getCurrentDistance()</h4>
+            <p>Returns the remaining distance in impulses to finish the current action.</p>
+            <h4 id="encoder-isRunning"><span class="type">bool</span> isRunning()</h4>
+            <p>Returns whether or not the <a href="devices.html#encoder">encoder motor</a> is currently running.</p>
+            <p><em>Note</em>: This <strong>DOES NOT</strong> mean the motor's current speed is non-zero! It checks
+            whether or not the last motor command has been excecuted or not.</p>
+            <h2 id="txt">TXT</h2>
+            <p>Implementation of the TXT 4.0.</p>
+            <table>
+                <tr>
+                    <th>Method</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td><a href="#txt-ctor1">TXT(<span class="type">const std::string &</span>host = "auto", <span class="type">int</span> port = 65000)</a></td>
+                    <td><a href="#txt-ctor1">Constructor</a></td>
+                </tr>
+                <tr>
+                    <td><a href="#txt-ctor2">TXT(<span class="type">TXT &</span>txt, <span class="type">int</span> slave)</a></td>
+                    <td><a href="#txt-ctor2">Constructor</a></td>
+                </tr>
+                <tr>
+                    <td><a href="#txt-getName"><span class="type">std::string</span> getName()</a></td>
+                    <td><a href="#txt-getName">Return TXT's name.</a></td>
+                </tr>
+                <tr>
+                    <td><a href="#txt-getVersion"><span class="type">int</span> getVersion()</a></td>
+                    <td><a href="#txt-getVersion">Return TXT's version.</a></td>
+                </tr>
+                <tr>
+                    <td><a href="#txt-getFirmware"><span class="type">int</span> getFirmware()</a></td>
+                    <td><a href="#txt-getFirmware">Return TXT's firmware version.</a></td>
+                </tr>
+                <tr>
+                    <td><a href="#txt-setMode"><span class="type">void</span> setMode(<span class="type">int</span> mode)</a></td>
+                    <td><a href="#txt-setMode">Set mode (single/master/slave).</a></td>
+                </tr>
+                <tr>
+                    <td><a href="#txt-setName"><span class="type">void</span> setName(<span class="type">const std::string &</span>name)</a></td>
+                    <td><a href="#txt-setName">Set new name.</a></td>
+                </tr>
+                <tr>
+                    <td><a href="#txt-getSlavesNumber"><span class="type">int</span> getSlavesNumber()</a></td>
+                    <td><a href="#txt-getSlavesNumber">Return number of slaves attached.</a></td>
+                </tr>
+                <tr>
+                    <td><a href="#txt-getSlaveUID"><span class="type">uint_32</span> getSlaveUID(<span class="type">int</span> number)</a></td>
+                    <td><a href="#txt-getSlaveUID">Return uid of selected slave.</a></td>
+                </tr>
+                <tr>
+                    <td><a href="#txt-getSlaveName"><span class="type">std::string</span> getSlaveName(<span class="type">int</span> number)</a></td>
+                    <td><a href="#txt-getSlaveName">Return name of selected slave.</a></td>
+                </tr>
+                <tr>
+                    <td><a href="#txt-getSlaveSerialNumber"><span class="type">std::string</span> getSlaveSerialNumber(<span class="type">int</span> number)</a></td>
+                    <td><a href="#txt-getSlaveName">Return serial number of selected slave.</a></td>
+                </tr>
+                <tr>
+                    <td><a href="#txt-getLamp"><span class="type">Lamp *</span>getLamp(<span class="type">int</span> output)</a></td>
+                    <td><a href="#txt-getLamp">Return Lamp instance.</a></td>
+                </tr>
+                <tr>
+                    <td><a href="#txt-getMotor"><span class="type">Motor *</span>getMotor(<span class="type">int</span> output)</a></td>
+                    <td><a href="#txt-getMotor">Return Motor instance.</a></td>
+                </tr>
+                <tr>
+                    <td><a href="#txt-getEncoder"><span class="type">Encoder *</span>getEncoder(<span class="type">int</span> output)</a></td>
+                    <td><a href="#txt-getEncoder">Return Lamp instance.</a></td>
+                </tr>
+                <tr>
+                    <td><a href="#txt-getServo"><span class="type">Servo *</span>getServo(<span class="type">int</span> output)</a></td>
+                    <td><a href="#txt-getServo">Return Servo instance.</a></td>
+                </tr>
+                <tr>
+                    <td><a href="#txt-getResistor"><span class="type">Resistor *</span>getResistor(<span class="type">int</span> input)</a></td>
+                    <td><a href="#txt-getResistor">Return Resistor instance.</a></td>
+                </tr>
+                <tr>
+                    <td><a href="#txt-getNCTTermistor"><span class="type">NCTTermistor *</span>getNCTTermistor(<span class="type">int</span> input)</a></td>
+                    <td><a href="#txt-getNCTTermistor">Return NCTTermistor instance.</a></td>
+                </tr>
+                <tr>
+                    <td><a href="#txt-getSwitch"><span class="type">Switch *</span>getSwitch(<span class="type">int</span> input)</a></td>
+                    <td><a href="#txt-getSwitch">Return Switch instance.</a></td>
+                </tr>
+                <tr>
+                    <td><a href="#txt-getDigital"><span class="type">Digital *</span>getDigital(<span class="type">int</span> input)</a></td>
+                    <td><a href="#txt-getDigital">Return Digital instance.</a></td>
+                </tr>
+                <tr>
+                    <td><a href="#txt-getVoltmeter"><span class="type">Voltmeter *</span>getVoltmeter<span class="type">int</span> input)</a></td>
+                    <td><a href="#txt-getVoltmeter">Return Voltmeter instance.</a></td>
+                </tr>
+                <tr>
+                    <td><a href="#txt-getColorSensor"><span class="type">ColorSensor *</span>getColorSensor(<span class="type">int</span> input)</a></td>
+                    <td><a href="#txt-getColorSensor">Return ColorSensor instance.</a></td>
+                </tr>
+                <tr>
+                    <td><a href="#txt-getTrailFollower"><span class="type">TrailFollower *</span>getTrailFollower(<span class="type">int</span> input)</a></td>
+                    <td><a href="#txt-getTrailFollower">Return TrailFollower instance.</a></td>
+                </tr>
+                <tr>
+                    <td><a href="#txt-getUltrasonic"><span class="type">Ultrasonic *</span>getUltrasonic(<span class="type">int</span> input)</a></td>
+                    <td><a href="#txt-getUltrasonic">Return Ultrasonic instance.</a></td>
+                </tr>
+                <tr>
+                    <td><a href="#txt-getCounter"><span class="type">Counter *</span>getCounter(<span class="type">int</span> input)</a></td>
+                    <td><a href="#txt-getCounter">Return Counter instance.</a></td>
+                </tr>
+                <tr>
+                   <td><a href="#txt-update_config"><span class="type">void</span> update_config()</a></td>
+                    <td><a href="#txt-update_config">Update IO config.</a></td>
+                </tr>
+                <tr>
+                    <td><a href="#txt-setBitrate"><span class="type">void</span> setBitrate(<span class="type">int</span> bitrate)</a></td>
+                    <td><a href="#txt-setBitrate">Set new CAN bitrate.</a></td>
+                </tr>
+                <tr>
+                    <td><a href="#txt-setTerminator"><span class="type">void</span> setTerminator(<span class="type">int</span> mode)</a></td>
+                    <td><a href="#txt-setTerminator">Toggle CAN terminator.</a></td>
+                </tr>
+                <tr>
+                     <td><a href="#txt-powerDown"><span class="type">void</span> powerDown()</a></td>
+                    <td><a href="#txt-powerDown">Power down M4.</a></td>
+                </tr>
+                <tr>
+                    <td><a href="#txt-reset"><span class="type">void</span> reset()</a></td>
+                    <td><a href="#txt-reset">Reset M4.</a></td>
+                </tr>
+            </table>
+            <h3 id="methods-16">Methods</h3>
+            <h4 id="txt-ctor1">TXT(<span class="type">const std::string &</span>host = "auto", <span class="type">int</span> port = 65000)</h4>
+            <p>Constructor for the TXT class. The pararmeters <em>host</em> and <em>port</em> have default
+            arguments and don't need to be provided. As of now, they are discarded without
+            being used!</p>
+            <table>
+            <thead>
+            <tr>
+            <th id="parameter">Parameter</th>
+            <th id="description">Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+            <td>host</td>
+            <td>optional host string (has no usage)</td>
+            </tr>
+            <tr>
+            <td>port</td>
+            <td>optional port number (has no usage)</td>
+            </tr>
+            </tbody>
+            </table>
+            <h4 id="txt-ctor2">TXT(<span class="type">TXT &</span>txt, <span class="type">int</span> slave)</h4>
+            <p>Constructor for the TXT class. Used to construct a slave TXT. Takes a reference to the master TXT and a slave number
+            as arguments.</p>
+            <p><em>Note</em>: The slave number is <em>NOT</em> the number set in the settings of the controller!
+            The TXTs are numbered by the order they are connected to the network!</p>
+            <table>
+            <thead>
+            <tr>
+            <th id="parameter">Parameter</th>
+            <th id="description">Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+            <td>txt</td>
+            <td>reference to master TXT</td>
+            </tr>
+            <tr>
+            <td>slave</td>
+            <td>slave number</td>
+            </tr>
+            </tbody>
+            </table>
+            <h4 id="txt-getName"><span class="type">std::string</span> getName()</h4>
+            <p>Returns the TXT name.</p>
+            <h4 id="txt-getVersion"><span class="type">int</span> getVersion()</h4>
+            <p>Returns the TXT version.</p>
+            <h4 id="txt-getFirmware"><span class="type">int</span> getFirmware()</h4>
+            <p>Returns the firmware version.</p>
+            <h4 id="txt-setMode"><span class="type">void</span> setMode(<span class="type">int</span> mode)</h4>
+            <p>Sets or changes the TXT's mode. Pass <em>0</em> for single mode, <em>1</em> for master mode
+            and <em>2</em> for slave mode (see <a href="c_fttypes.html#ft_txt_mode">txt mode</a> enum).</p>
+            <table>
+            <thead>
+            <tr>
+            <th id="parameter">Parameter</th>
+            <th id="description">Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+            <td>mode</td>
+            <td>new TXT mode</td>
+            </tr>
+            </tbody>
+            </table>
+            <h4 id="txt-setName"><span class="type">void</span> setName(<span class="type">const std::string &</span>name)</h4>
+            <p>Sets new name for the TXT. A name is a 16 character string. The name can shorter.</p>
+            <table>
+            <thead>
+            <tr>
+            <th id="parameter">Parameter</th>
+            <th id="description">Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+            <td>name</td>
+            <td>new name</td>
+            </tr>
+            </tbody>
+            </table>
+            <h4 id="txt-getSlavesNumber"><span class="type">int</span> getSlavesNumber()</h4>
+            <p>Returns the number of slaves attached to this TXT.</p>
+            <h4 id="txt-getSlaveUID"><span class="type">uint_32</span> getSlaveUID(<span class="type">int</span> number)</h4>
+            <p>Returns the uid of the selected slave. Slave with the number <em>0</em> is the master TXT.</p>
+            <p><em>Note</em>: The slave number is <em>NOT</em> the number set in the settings of the controller!
+            The TXTs are numbered by the order they are connected to the network!</p>
+            <table>
+            <thead>
+            <tr>
+            <th id="parameter">Parameter</th>
+            <th id="description">Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+            <td>number</td>
+            <td>slave number</td>
+            </tr>
+            </tbody>
+            </table>
+            <h4 id="txt-getSlaveName"><span class="type">std::string</span> getSlaveName(<span class="type">int</span> number)</h4>
+            <p>Returns the name of the selected slave. Slave with the number <em>0</em> is the master TXT.</p>
+            <p><em>Note</em>: The slave number is <em>NOT</em> the number set in the settings of the controller!
+            The TXTs are numbered by the order they are connected to the network!</p>
+            <table>
+            <thead>
+            <tr>
+            <th id="parameter">Parameter</th>
+            <th id="description">Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+            <td>number</td>
+            <td>slave number</td>
+            </tr>
+            </tbody>
+            </table>
+            <h4 id="txt-getSlaveSerialNumber"><span class="type">std::string</span> getSlaveSerialNumber(<span class="type">int</span> number)</h4>
+            <p>Returns the serial number of the selected slave. Slave with the number <em>0</em> is the master TXT.</p>
+            <p><em>Note</em>: The slave number is <em>NOT</em> the number set in the settings of the controller!
+            The TXTs are numbered by the order they are connected to the network!</p>
+            <table>
+            <thead>
+            <tr>
+            <th id="parameter">Parameter</th>
+            <th id="description">Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+            <td>number</td>
+            <td>slave number</td>
+            </tr>
+            </tbody>
+            </table>
+            <h4 id="txt-getLamp"><span class="type">Lamp *</span>getLamp(<span class="type">int</span> output)</h4>
+            <p>Allocates a new <a href="#lamp">Lamp</a> instance on the heap connected to the pin specified by <em>output</em> and returns the pointer.</p>
+            <p><em>Note</em>: The instance is <em>NOT</em> allocated as a smart pointer! To avoid memory leaks, one has to delete the pointer
+            manually when it's no longer needed.</p>
+            <table>
+            <thead>
+            <tr>
+            <th id="parameter">Parameter</th>
+            <th id="description">Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+            <td>output</td>
+            <td>output pin number [<em>1-8</em>]</td>
+            </tr>
+            </tbody>
+            </table>
+            <h4 id="txt-getMotor"><span class="type">Motor *</span>getMotor(<span class="type">int</span> output)</h4>
+            <p>Allocates a new <a href="#motor">Motor</a> instance on the heap connected to the pin specified by <em>output</em> and returns the pointer.</p>
+            <p><em>Note</em>: The instance is <em>NOT</em> allocated as a smart pointer! To avoid memory leaks, one has to delete the pointer
+            manually when it's no longer needed.</p>
+            <table>
+            <thead>
+            <tr>
+            <th id="parameter">Parameter</th>
+            <th id="description">Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+            <td>output</td>
+            <td>motor pin number [<em>1-4</em>]</td>
+            </tr>
+            </tbody>
+            </table>
+            <h4 id="txt-getEncoder"><span class="type">Encoder *</span>getEncoder(<span class="type">int</span> output)</h4>
+            <p>Allocates a new <a href="#encoder">Encoder</a> instance on the heap connected to the pin specified by <em>output</em> and returns the pointer.
+            The counter must be connected to the same pin number as the motor. (e.g. motor connected to M1, counter connected to C1).</p>
+            <p><em>Note</em>: The instance is <em>NOT</em> allocated as a smart pointer! To avoid memory leaks, one has to delete the pointer
+            manually when it's no longer needed.</p>
+            <table>
+            <thead>
+            <tr>
+            <th id="parameter">Parameter</th>
+            <th id="description">Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+            <td>output</td>
+            <td>motor &amp; counter pin number [<em>1-4</em>]</td>
+            </tr>
+            </tbody>
+            </table>
+            <h4 id="txt-getServo"><span class="type">Servo *</span>getServo(<span class="type">int</span> output)</h4>
+            <p>Allocates a new <a href="#servo">Servo</a> instance on the heap connected to the pin specified by <em>output</em> and returns the pointer.</p>
+            <p><em>Note</em>: The instance is <em>NOT</em> allocated as a smart pointer! To avoid memory leaks, one has to delete the pointer
+            manually when it's no longer needed.</p>
+            <table>
+            <thead>
+            <tr>
+            <th id="parameter">Parameter</th>
+            <th id="description">Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+            <td>output</td>
+            <td>servo pin number [<em>1-3</em>]</td>
+            </tr>
+            </tbody>
+            </table>
+            <h4 id="txt-getResistor"><span class="type">Resistor *</span>getResistor(<span class="type">int</span> input)</h4>
+            <p>Allocates a new <a href="#resistor">Resistor</a> instance on the heap connected to the pin specified by <em>input</em> and returns the pointer.</p>
+            <p><em>Note</em>: The instance is <em>NOT</em> allocated as a smart pointer! To avoid memory leaks, one has to delete the pointer
+            manually when it's no longer needed.</p>
+            <table>
+            <thead>
+            <tr>
+            <th id="parameter">Parameter</th>
+            <th id="description">Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+            <td>input</td>
+            <td>universal input pin number [<em>1-8</em>]</td>
+            </tr>
+            </tbody>
+            </table>
+            <h4 id="txt-getNCTTermistor"><span class="type">NCTTermistor *</span>getNCTTermistor(<span class="type">int</span> input)</h4>
+            <p>Allocates a new <a href="#ncttermistor">NCTTermistor</a> instance on the heap connected to the pin specified
+            by <em>input</em> and returns the pointer.</p>
+            <p><em>Note</em>: The instance is <em>NOT</em> allocated as a smart pointer! To avoid memory
+            leaks, one has to delete the pointer manually when it's no longer needed.</p>
+            <table>
+            <thead>
+            <tr>
+            <th id="parameter">Parameter</th>
+            <th id="description">Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+            <td>input</td>
+            <td>universal input pin number [<em>1-8</em>]</td>
+            </tr>
+            </tbody>
+            </table>
+            <h4 id="txt-getSwitch"><span class="type">Switch *</span>getSwitch(<span class="type">int</span> input)</h4>
+            <p>Allocates a new <a href="#switch">Switch</a> instance on the heap connected to the pin specified by
+            <em>input</em> and returns the pointer.</p>
+            <p><em>Note</em>: The instance is <em>NOT</em> allocated as a smart pointer! To avoid memory
+            leaks, one has to delete the pointer manually when it's no longer needed.</p>
+            <table>
+            <thead>
+            <tr>
+            <th id="parameter">Parameter</th>
+            <th id="description">Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+            <td>input</td>
+            <td>universal input pin number [<em>1-8</em>]</td>
+            </tr>
+            </tbody>
+            </table>
+            <h4 id="txt-getDigital"><span class="type">Digital *</span>getDigital(<span class="type">int</span> input)</h4>
+            <p>Allocates a new <a href="#digital">Digital</a> instance on the heap connected to the pin specified by
+            <em>input</em> and returns the pointer.</p>
+            <p><em>Note</em>: The instance is <em>NOT</em> allocated as a smart pointer! To avoid memory
+            leaks, one has to delete the pointer manually when it's no longer needed.</p>
+            <table>
+            <thead>
+            <tr>
+            <th id="parameter">Parameter</th>
+            <th id="description">Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+            <td>input</td>
+            <td>universal input pin number [<em>1-8</em>]</td>
+            </tr>
+            </tbody>
+            </table>
+            <h4 id="txt-getVoltmeter"><span class="type">Voltmeter *</span>getVoltmeter<span class="type">int</span> input)</h4>
+            <p>Allocates a new <a href="#voltmeter">Voltmeter</a> instance on the heap connected to the pin specified
+            by <em>input</em> and returns the pointer.</p>
+            <p><em>Note</em>: The instance is <em>NOT</em> allocated as a smart pointer! To avoid memory
+            leaks, one has to delete the pointer manually when it's no longer needed.</p>
+            <table>
+            <thead>
+            <tr>
+            <th id="parameter">Parameter</th>
+            <th id="description">Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+            <td>input</td>
+            <td>universal input pin number [<em>1-8</em>]</td>
+            </tr>
+            </tbody>
+            </table>
+            <h4 id="txt-getColorSensor"><span class="type">ColorSensor *</span>getColorSensor(<span class="type">int</span> input)</h4>
+            <p>Allocates a new <a href="#colorsensor">ColorSensor</a> instance on the heap connected to the pin specified
+            by <em>input</em> and returns the pointer.</p>
+            <p><em>Note</em>: The instance is <em>NOT</em> allocated as a smart pointer! To avoid memory
+            leaks, one has to delete the pointer manually when it's no longer needed.</p>
+            <table>
+            <thead>
+            <tr>
+            <th id="parameter">Parameter</th>
+            <th id="description">Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+            <td>input</td>
+            <td>universal input pin number [<em>1-8</em>]</td>
+            </tr>
+            </tbody>
+            </table>
+            <h4 id="txt-getTrailFollower"><span class="type">TrailFollower *</span>getTrailFollower(<span class="type">int</span> input)</h4>
+            <p>Allocates a new <a href="#trailfollower">TrailFollower</a> instance on the heap connected to the pin
+            specified by <em>input</em> and returns the pointer.</p>
+            <p><em>Note</em>: The instance is <em>NOT</em> allocated as a smart pointer! To avoid memory
+            leaks, one has to delete the pointer manually when it's no longer needed.</p>
+            <table>
+            <thead>
+            <tr>
+            <th id="parameter">Parameter</th>
+            <th id="description">Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+            <td>input</td>
+            <td>universal input pin number [<em>1-8</em>]</td>
+            </tr>
+            </tbody>
+            </table>
+            <h4 id="txt-getUltrasonic"><span class="type">Ultrasonic *</span>getUltrasonic(<span class="type">int</span> input)</h4>
+            <p>Allocates a new <a href="#ultrasonic">Ultrasonic</a> instance on the heap connected to the pin specified
+            by <em>input</em> and returns the pointer.</p>
+            <p><em>Note</em>: The instance is <em>NOT</em> allocated as a smart pointer! To avoid memory
+            leaks, one has to delete the pointer manually when it's no longer needed.</p>
+            <table>
+            <thead>
+            <tr>
+            <th id="parameter">Parameter</th>
+            <th id="description">Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+            <td>input</td>
+            <td>universal input pin number [<em>1-8</em>]</td>
+            </tr>
+            </tbody>
+            </table>
+            <h4 id="txt-getCounter"><span class="type">Counter *</span>getCounter(<span class="type">int</span> input)</h4>
+            <p>Allocates a new <a href="#counter">Counter</a> instance on the heap connected to the pin specified by
+            <em>input</em> and returns the pointer.</p>
+            <p><em>Note</em>: The instance is <em>NOT</em> allocated as a smart pointer! To avoid memory
+            leaks, one has to delete the pointer manually when it's no longer needed.</p>
+            <table>
+            <thead>
+            <tr>
+            <th id="parameter">Parameter</th>
+            <th id="description">Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+            <td>input</td>
+            <td>counter pin number [<em>1-4</em>]</td>
+            </tr>
+            </tbody>
+            </table>
+            <h4 id="txt-update_config"><span class="type">void</span> update_config()</h4>
+            <p>Updates the TXT's input/output configuration. This function must be called
+            after allocating new sensors and actuators for them to become usable. Since
+            this functions requires communication with the M4, the update is not in effect
+            immediatly after the function returns, so a sleep might be used to make sure
+            the peripheral is usuable. For updating the master TXT, 10 <em>ms</em> is sufficient,
+            updating slave TXT takes up to 70 <em>ms</em>.</p>
+            <h4 id="txt-setBitrate"><span class="type">void</span> setBitrate(<span class="type">int</span> bitrate)</h4>
+            <p>Sets a new CAN bitrate.</p>
+            <table>
+            <thead>
+            <tr>
+            <th id="parameter">Parameter</th>
+            <th id="description">Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+            <td>bitrate</td>
+            <td>new CAN bitrate (in Hz)</td>
+            </tr>
+            </tbody>
+            </table>
+            <h4 id="txt-setTerminator"><span class="type">void</span> setTerminator(<span class="type">int</span> mode)</h4>
+            <p>Toggels whether or not to use a termitator for FDCAN.<br>
+            mode = <em>0</em> disabels the terminator, mode = <em>1</em> enabels it.</p>
+            <table>
+            <thead>
+            <tr>
+            <th id="parameter">Parameter</th>
+            <th id="description">Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+            <td>mode</td>
+            <td>new mode</td>
+            </tr>
+            </tbody>
+            </table>
+            <h4 id="txt-powerDown"><span class="type">void</span> powerDown()</h4>
+            <p>Powers down the M4.</p>
+            <h4 id="txt-reset"><span class="type">void</span> reset()</h4>
+            <p>Resets the M4. As of now, this method does nothing.</p>
+            <br>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,323 @@
+<html>
+    <head>
+        <title>Device Reference</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="../css/github-markdown.css">
+        <link rel="stylesheet" href="../css/main.css">
+        <script>
+            function closeMenu() {
+                document.getElementById("menu-title").style.display = "block"
+                document.getElementById("menu-close").style.display = "none"
+                document.getElementById("menu").style.display = "none"
+
+            }
+
+            function showMenu() {
+                document.getElementById("menu-title").style.display = "none"
+                document.getElementById("menu-close").style.display = "block"
+                document.getElementById("menu").style.display = "block"
+            }
+        </script>
+    </head>
+
+    <body>
+        <header class="frame menu-bar">
+            <div class="menu-control link" style="position: absolute; left: 0px;" onclick="showMenu()">≡</div>
+            <h2 class="link" onclick="location.href='../index.html';">TXT 4.0</h2>
+        </header>
+        <div class="frame menu" id="menu" style="display: none;">
+            <h2 class="link" id="menu-title" style="text-align: center;" onclick="location.href='../index.html';">TXT 4.0</h2>
+            <div class="menu-control link", id="menu-close" style="display: none;" onclick="closeMenu()">×</div>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="getting_started.html">Getting Started</a></li>
+                <li><a href="devices.html" class="active">Devices</a></li>
+                <li><a href="cpp_interface.html">C++ Interface</a></li>
+                <li><a href="c_interface.html">C Interface</a></li>
+            </ul>
+        </div>
+
+        <div class="markdown-body">
+            <h1 id="devices">Devices</h1>
+            <p>Devices are the representation of actuators and sensors attached to the TXT.<br />
+            For the C interface, the header <a href="c_allocators.html">ftalloc.h</a> defines functions
+            to allocate and deallocate the devices while the header <a href="c_operations.html">ftop.h</a>
+            implements their functionalities.<br />
+            The C++ interface implements the devices as <a href="cpp_classes.html">classes</a>.</p>
+            <table>
+            <thead>
+            <tr>
+            <th id="devices">Devices</th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><a href="#txt"><strong>TXT</strong></a></td>
+                </tr>
+            <tr>
+            <td><a href="#inputs---generic"><strong>Inputs</strong></a></td>
+            </tr>
+            <tr>
+            <td><a href="#switch">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Switch</a></td>
+            </tr>
+            <tr>
+            <td><a href="#digital">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Digital</a></td>
+            </tr>
+            <tr>
+            <td><a href="#resistor">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Resistor</a></td>
+            </tr>
+            <tr>
+            <td><a href="#voltmeter">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Voltmeter</a></td>
+            </tr>
+            <tr>
+            <td><a href="#ultrasonic">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ultrasonic</a></td>
+            </tr>
+            <tr>
+            <td><a href="#ntc-thermistor">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NTC-Thermistor</a></td>
+            </tr>
+            <tr>
+            <td><a href="#trailfollower">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TrailFollower</a></td>
+            </tr>
+            <tr>
+            <td><a href="#colorsensor">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ColorSensor</a></td>
+            </tr>
+            <tr>
+            <td><a href="#counter"><strong>Counter</strong></a></td>
+            </tr>
+            <tr>
+            <td><a href="#output"><strong>Output</strong></a></td>
+            </tr>
+            <tr>
+            <td><a href="#motors"><strong>Motors</strong></a></td>
+            </tr>
+            <tr>
+            <td><a href="#motor">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Motor</a></td>
+            </tr>
+            <tr>
+            <td><a href="#encoder">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Encoder</a></td>
+            </tr>
+            <tr>
+            <td><a href="#servo"><strong>Servo</strong></a></td>
+            </tr>
+            </tbody>
+            </table>
+            <h2 id="txt">TXT</h2>
+            <p>Implementation of the TXT 4.0 controller itself.</p>
+            <h2 id="inputs---generic">Inputs - Generic</h2>
+            <p>The universal input connectors allow a large variety of different sensors to be
+            attached. Each input can be configured by specifying a measurement mode and the
+            resolution.</p>
+            <p>Measurement modes:</p>
+            <table>
+            <thead>
+            <tr>
+            <th id="mode">Mode</th>
+            <th id="description">Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+            <td><em>active</em></td>
+            <td>TXT measures a voltage.</td>
+            </tr>
+            <tr>
+            <td><em>passive</em></td>
+            <td>TXT measures a resistance.</td>
+            </tr>
+            <tr>
+            <td><em>ultrasonic</em></td>
+            <td>fischertechnik's ultrasonic sensor uses a special protocol to transmit the distance to the TXT.</td>
+            </tr>
+            </tbody>
+            </table>
+            <p>Resolutions:</p>
+            <table>
+            <thead>
+            <tr>
+            <th id="mode">Mode</th>
+            <th id="values">Values</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+            <td><em>analog</em></td>
+            <td>0-4096 (12-bit ADC)</td>
+            </tr>
+            <tr>
+            <td><em>digital</em></td>
+            <td>0 or 1</td>
+            </tr>
+            </tbody>
+            </table>
+            <h3 id="switch">Switch</h3>
+            <p>A switch measures whether the circuit is open or closed. It returns <em>true</em> if
+            the circuit is closed (the switch is pressed) and <em>false</em> if the circuit is open
+            (the switch is not pressed).</p>
+            <table>
+                <tr>
+                    <th>Connectors:</th>
+                    <td colspan="2" style="text-align:center;"><i>I1 - I8, C1 - C4</i></td>
+                </tr>
+                <tr>
+                    <th>Configuration:</th>
+                    <td>passive</td>
+                    <td>digital</td>
+                </tr>
+            </table>
+            <p>Example: switch, light barrier, reed contact</p>
+            <h3 id="digital">Digital</h3>
+            <p>Detects whether a voltage is applied or not. Returns <em>true</em> if a voltage is
+            applied and <em>false</em> if no voltage is applied.</p>
+            <table>
+                <tr>
+                    <th>Connectors:</th>
+                    <td colspan="2" style="text-align:center;"><i>I1 - I8</i></td>
+                </tr>
+                <tr>
+                    <th>Configuration:</th>
+                    <td>active</td>
+                    <td>digital</td>
+                </tr>
+            </table>
+            <p>Example: trail sensor</p>
+            <h3 id="resistor">Resistor</h3>
+            <p>Measures the component's resistance in <em>Ω</em>.</p>
+            <table>
+                <tr>
+                    <th>Connectors:</th>
+                    <td colspan="2" style="text-align:center;"><i>I1 - I8</i></td>
+                </tr>
+                <tr>
+                    <th>Configuration:</th>
+                    <td>passive</td>
+                    <td>analog</td>
+                </tr>
+            </table>
+            <p>Example: resistor, photoresistor, potentiometer</p>
+            <h3 id="voltmeter">Voltmeter</h3>
+            <p>Measures the externally applied voltage in <em>mV</em>.</p>
+            <table>
+                <tr>
+                    <th>Connectors:</th>
+                    <td colspan="2" style="text-align:center;"><i>I1 - I8</i></td>
+                </tr>
+                <tr>
+                    <th>Configuration:</th>
+                    <td>active</td>
+                    <td>analog</td>
+                </tr>
+            </table>
+            <p>Example: power supplies like batteries etc.</p>
+            <h2 id="inputs---specialized">Inputs - Specialized</h2>
+            <p>Besides the generic devices that can be used to implement various custom sensors,
+            the interface offers specialized devices for the standard fischertechnik sensors.</p>
+            <h3 id="ultrasonic">Ultrasonic</h3>
+            <p>Measures the distance of a fischertechnik ultrasonic sensor.</p>
+            <table>
+                <tr>
+                    <th>Connectors:</th>
+                    <td colspan="2" style="text-align:center;"><i>I1 - I8</i></td>
+                </tr>
+                <tr>
+                    <th>Configuration:</th>
+                    <td>ultrasonic</td>
+                    <td>analog</td>
+                </tr>
+            </table>
+            <h3 id="ntc-thermistor">NTC-Thermistor</h3>
+            <p>Implementation of fischertechnik's 1,5 <em>kΩ</em> NTC.</p>
+            <table>
+                <tr>
+                    <th>Connectors:</th>
+                    <td colspan="2" style="text-align:center;"><i>I1 - I8</i></td>
+                </tr>
+                <tr>
+                    <th>Configuration:</th>
+                    <td>passive</td>
+                    <td>analog</td>
+                </tr>
+            </table>
+            <h3 id="trailfollower">TrailFollower</h3>
+            <p>Implementation of the trail sensor based on <em>Digital</em>.</p>
+            <p><em>Note</em>: The fischertechnik trail sensor has two diodes for trail detection. Both
+            of them need to be initialized.</p>
+            <table>
+                <tr>
+                    <th>Connectors:</th>
+                    <td colspan="2" style="text-align:center;"><i>I1 - I8</i></td>
+                </tr>
+                <tr>
+                    <th>Configuration:</th>
+                    <td>active</td>
+                    <td>digital</td>
+                </tr>
+            </table>
+            <h3 id="colorsensor">ColorSensor</h3>
+            <p>Implementation of the color sensor.</p>
+            <table>
+                <tr>
+                    <th>Connectors:</th>
+                    <td colspan="2" style="text-align:center;"><i>I1 - I8</i></td>
+                </tr>
+                <tr>
+                    <th>Configuration:</th>
+                    <td>active</td>
+                    <td>analog</td>
+                </tr>
+            </table>
+            <h2 id="counter">Counter</h2>
+            <p>Counters are digital input devices that count the number of changes between the
+            two states <em>1</em> and <em>0</em>. The detection rate is 1 <em>kHz</em>. The counter value is
+            incremented on the falling edge, when the state changes from <em>1</em> to <em>0</em>. Both
+            the counter value and the current state can be returned. The counter value can
+            also be resetted.</p>
+            <table>
+                <tr>
+                    <th>Connectors:</th>
+                    <td><i>C1 - C4</i></td>
+                </tr>
+            </table>
+            <p>Example: switch, encoder motor</p>
+            <h2 id="output-lamp">Output (Lamp)</h2>
+            <p>Outputs (called <em>Lamp</em> by the interface) are actuators that are powerd by the
+            TXT. The power can be adjusted by PWM in the interval [<em>0, 512</em>]. The direction
+            of the current is fixed and cannot be changed.</p>
+            <table>
+                <tr>
+                    <th>Connectors:</th>
+                    <td><i>O1 - O8</i></td>
+                </tr>
+            </table>
+            <p>Example: LED, lamp, unidirectional motor, electromagnet, magnet valve</p>
+            <h2 id="motors">Motors</h2>
+            <p>Motors are actuators where the direction of the current can be changed. Like outputs,
+            the power supply is controlled by PWM using the interval [<em>-512, 512</em>].</p>
+            <table>
+                <tr>
+                    <th>Connectors:</th>
+                    <td><i>M1 - M4</i></td>
+                </tr>
+            </table>
+            <h3 id="motor">Motor</h3>
+            <p>The standard motor offers an interface to start and stop the motor and change
+            speed and direction.</p>
+            <h3 id="encoder">Encoder</h3>
+            <p>The encoder motor combines a regular motor and a fast counter. This counter must
+            be connected to <strong>C1 - C4</strong>. This opens a large range of finer control options.
+            It allows the motor to move for a certain distance and further allows up to four
+            encoders to be synchronized.</p>
+            <h2 id="servo">Servo</h2>
+            <p>Servos can be connected to the S1 - S3 pins. The PWM control features the same
+            9 bit resolution [<em>0, 512</em>], where PWM = <em>256</em> is the central position).</p>
+            <table>
+                <tr>
+                    <th>Connectors:</th>
+                    <td><i>S1 - S3</i></td>
+                </tr>
+            </table>
+            <br>
+            
+        </div>
+    </body>
+</html>

@@ -1,0 +1,522 @@
+<html>
+    <head>
+        <title>C Types Reference></title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="../css/github-markdown.css">
+        <link rel="stylesheet" href="../css/main.css">
+        <script>
+            function closeMenu() {
+                document.getElementById("menu-title").style.display = "block"
+                document.getElementById("menu-close").style.display = "none"
+                document.getElementById("menu").style.display = "none"
+
+            }
+
+            function showMenu() {
+                document.getElementById("menu-title").style.display = "none"
+                document.getElementById("menu-close").style.display = "block"
+                document.getElementById("menu").style.display = "block"
+            }
+        </script>
+    </head>
+
+    <body>
+        <header class="frame menu-bar">
+            <div class="menu-control link" style="position: absolute; left: 0px;" onclick="showMenu()">≡</div>
+            <h2 class="link" onclick="location.href='../index.html';">TXT 4.0</h2>
+        </header>
+        <div class="frame menu" id="menu" style="display: none;">
+            <h2 class="link" id="menu-title" style="text-align: center;" onclick="location.href='../index.html';">TXT 4.0</h2>
+            <div class="menu-control link", id="menu-close" style="display: none;" onclick="closeMenu()">×</div>
+            <ul>
+                <li><a href="home.html">Home</a></li>
+                <li><a href="getting_started.html">Getting Started</a></li>
+                <li><a href="devices.html">Devices</a></li>
+                <li><a href="cpp_interface.html">C++ Interface</a></li>
+                <li><a href="c_interface.html" class="selected">C Interface</a></li>
+                <li>
+                    <ul>
+                        <li><a href="c_allocators.html">Allocators</a></li>
+                        <li><a href="c_operations.html">Operations</a></li>
+                        <li><a href="c_slaves.html">Slaves</a></li>
+                        <li><a href="c_fttypes.html" class="active">Types</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <div class="markdown-body">
+            <h1 id="c-common-types">C Common types</h1>
+<p>The fttypes.h header defines a range of useful types and values the C interface
+relies on. It includes the connector types, sensor types, measurement modes and
+many more.</p>
+<table>
+<thead>
+<tr>
+<th id="content">Content</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="#ftobjects_connection">ftobjects_connections</a></td>
+</tr>
+<tr>
+<td><a href="#ftinput_modes">ftinput_modes</a></td>
+</tr>
+<tr>
+<td><a href="#ftinputs_components">ftinputs_components</a></td>
+</tr>
+<tr>
+<td><a href="#ft_txt_mode">ft_txt_mode</a></td>
+</tr>
+<tr>
+<td><a href="#ft_event">ft_event</a></td>
+</tr>
+<tr>
+<td><a href="#ft_bevents">ft_bevents</a></td>
+</tr>
+<tr>
+<td><a href="#ft_faults_flags">ft_faults_flags</a></td>
+</tr>
+</tbody>
+</table>
+<h3 id="ftobjects_connection">ftobjects_connection</h3>
+<p>This enum defines values for all connectors of the TXT 4.0. These values are
+used in the <a href="c_allocators.html#allocators">allocation of devices</a>.</p>
+<table>
+<thead>
+<tr>
+<th id="name">Name</th>
+<th id="value">Value</th>
+<th id="connector">Connector</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ftdev_unknown</td>
+<td>0</td>
+<td>unknown connector</td>
+</tr>
+<tr>
+<td>ftdev_txt</td>
+<td>1</td>
+<td>TXT itself</td>
+</tr>
+<tr>
+<td>ftdev_i1</td>
+<td>2</td>
+<td>I1</td>
+</tr>
+<tr>
+<td>ftdev_i2</td>
+<td>3</td>
+<td>I2</td>
+</tr>
+<tr>
+<td>ftdev_i3</td>
+<td>4</td>
+<td>I3</td>
+</tr>
+<tr>
+<td>ftdev_i4</td>
+<td>5</td>
+<td>I4</td>
+</tr>
+<tr>
+<td>ftdev_i5</td>
+<td>6</td>
+<td>I5</td>
+</tr>
+<tr>
+<td>ftdev_i6</td>
+<td>7</td>
+<td>I6</td>
+</tr>
+<tr>
+<td>ftdev_i7</td>
+<td>8</td>
+<td>I7</td>
+</tr>
+<tr>
+<td>ftdev_i8</td>
+<td>9</td>
+<td>I8</td>
+</tr>
+<tr>
+<td>ftdev_o1</td>
+<td>10</td>
+<td>O1</td>
+</tr>
+<tr>
+<td>ftdev_m1</td>
+<td>10</td>
+<td>M1</td>
+</tr>
+<tr>
+<td>ftdev_o2</td>
+<td>11</td>
+<td>O2</td>
+</tr>
+<tr>
+<td>ftdev_o3</td>
+<td>12</td>
+<td>O3</td>
+</tr>
+<tr>
+<td>ftdev_m2</td>
+<td>12</td>
+<td>M2</td>
+</tr>
+<tr>
+<td>ftdev_o4</td>
+<td>13</td>
+<td>O4</td>
+</tr>
+<tr>
+<td>ftdev_o5</td>
+<td>14</td>
+<td>O5</td>
+</tr>
+<tr>
+<td>ftdev_m3</td>
+<td>14</td>
+<td>M3</td>
+</tr>
+<tr>
+<td>ftdev_o6</td>
+<td>15</td>
+<td>O6</td>
+</tr>
+<tr>
+<td>ftdev_o7</td>
+<td>16</td>
+<td>O7</td>
+</tr>
+<tr>
+<td>ftdev_m4</td>
+<td>16</td>
+<td>M4</td>
+</tr>
+<tr>
+<td>ftdev_o8</td>
+<td>17</td>
+<td>O8</td>
+</tr>
+<tr>
+<td>ftdev_c1</td>
+<td>18</td>
+<td>C1</td>
+</tr>
+<tr>
+<td>ftdev_c2</td>
+<td>19</td>
+<td>C2</td>
+</tr>
+<tr>
+<td>ftdev_c3</td>
+<td>20</td>
+<td>C3</td>
+</tr>
+<tr>
+<td>ftdev_c4</td>
+<td>21</td>
+<td>C4</td>
+</tr>
+<tr>
+<td>ftdev_s1</td>
+<td>22</td>
+<td>S1</td>
+</tr>
+<tr>
+<td>ftdev_s2</td>
+<td>23</td>
+<td>S2</td>
+</tr>
+<tr>
+<td>ftdev_s3</td>
+<td>24</td>
+<td>S3</td>
+</tr>
+<tr>
+<td>ftdev_max</td>
+<td>25</td>
+<td>max connectors</td>
+</tr>
+</tbody>
+</table>
+<h3 id="ftinput_modes">ftinput_modes</h3>
+<p>This enum defines the measurement modes and resolutions for input devices.
+These are used when manually allocating a sensor and are returned by
+the function <a href="c_allocators.html#alloc_mode">ftop_alloc_mode</a>.</p>
+<table>
+<thead>
+<tr>
+<th id="name">Name</th>
+<th id="value">Value</th>
+<th id="description">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ftinp_unknown</td>
+<td>0</td>
+<td>unconfigured input</td>
+</tr>
+<tr>
+<td>ftinp_active</td>
+<td>0</td>
+<td>active input</td>
+</tr>
+<tr>
+<td>ftinp_passive</td>
+<td>1</td>
+<td>passive input</td>
+</tr>
+<tr>
+<td>ftinp_digital</td>
+<td>2</td>
+<td>digital input</td>
+</tr>
+<tr>
+<td>ftinp_analog</td>
+<td>4</td>
+<td>analog input</td>
+</tr>
+<tr>
+<td>ftinp_ultrasonic</td>
+<td>8</td>
+<td>ultrasonic input</td>
+</tr>
+<tr>
+<td>ftinp_r1</td>
+<td>0</td>
+<td>normal range (0 - 5 V)</td>
+</tr>
+<tr>
+<td>ftinp_r2</td>
+<td>16</td>
+<td>extended range (0 - 9 V)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="ftinputs_components">ftinputs_components</h3>
+<p>The ftinputs_components enum defines the different input devices that are
+supported by the C-API. These are used when manually allocating an input
+device. Also, the function <a href="c_allocators.html#alloc_code">ft_alloc_code</a>
+returns these values to characterize the given sensor.</p>
+<table>
+<thead>
+<tr>
+<th id="name">Name</th>
+<th id="value">Value</th>
+<th id="description">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ftinput_unknown</td>
+<td>0</td>
+<td>unconfigured input</td>
+</tr>
+<tr>
+<td>ftinput_switch</td>
+<td>1</td>
+<td>switch input</td>
+</tr>
+<tr>
+<td>ftinput_voltage</td>
+<td>2</td>
+<td>voltage input</td>
+</tr>
+<tr>
+<td>ftinput_resistor</td>
+<td>3</td>
+<td>resistor input</td>
+</tr>
+<tr>
+<td>ftinput_termistor</td>
+<td>4</td>
+<td>thermistor input</td>
+</tr>
+<tr>
+<td>ftinput_color_sensor</td>
+<td>5</td>
+<td>color sensor input</td>
+</tr>
+<tr>
+<td>ftinput_trail_follower</td>
+<td>6</td>
+<td>trail follower input</td>
+</tr>
+<tr>
+<td>ftinput_ultrasonic</td>
+<td>7</td>
+<td>ultrasonic input</td>
+</tr>
+<tr>
+<td>ftinput_digital</td>
+<td>8</td>
+<td>digital input</td>
+</tr>
+<tr>
+<td>ftinput_encoder</td>
+<td>9</td>
+<td>encoder</td>
+</tr>
+<tr>
+<td>ftinput_max</td>
+<td>10</td>
+<td>max input components</td>
+</tr>
+</tbody>
+</table>
+<h3 id="ft_txt_mode">ft_txt_mode</h3>
+<p>The ft_txt_mode enum defines the different communication modes the TXT 4.0 can be
+set to. They are used by the function <a href="c_slaves.html#txt_mode">ftop_txt_mode</a>.</p>
+<table>
+<thead>
+<tr>
+<th id="name">Name</th>
+<th id="value">Value</th>
+<th id="description">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ft_txt_single</td>
+<td>0</td>
+<td>single mode</td>
+</tr>
+<tr>
+<td>ft_txt_master</td>
+<td>1</td>
+<td>master mode</td>
+</tr>
+<tr>
+<td>ft_txt_slave</td>
+<td>2</td>
+<td>slave mode</td>
+</tr>
+</tbody>
+</table>
+<h3 id="ft_event">ft_event</h3>
+<p>This enum defines events for different TXT updates.</p>
+<table>
+<thead>
+<tr>
+<th id="name">Name</th>
+<th id="value">Value</th>
+<th id="description">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ft_event_info_update</td>
+<td>0</td>
+<td>common info update</td>
+</tr>
+<tr>
+<td>ft_event_values_update</td>
+<td>1</td>
+<td>value update</td>
+</tr>
+<tr>
+<td>ft_event_slaves_update</td>
+<td>2</td>
+<td>slaves set update</td>
+</tr>
+<tr>
+<td>ft_event_faults_update</td>
+<td>3</td>
+<td>faults update</td>
+</tr>
+<tr>
+<td>ft_event_max</td>
+<td>4</td>
+<td>max event</td>
+</tr>
+</tbody>
+</table>
+<h3 id="ft_bevents">ft_bevents</h3>
+<p>The enum ft_bevents defines event bits based on <a href="#ftevent">ft_event</a>.
+These are used to build event bit masks for event listening via
+<a href="c_operations.md#span-classtype-idwaiteventintspan-ftopwaiteventspan-classtypevoid-spandevice-span-classtypeuint32tspan-emask">ftop_wait_event()</a>.</p>
+<table>
+<thead>
+<tr>
+<th id="name">Name</th>
+<th id="value">Value</th>
+<th id="description">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ft_bevent_info_update</td>
+<td>1</td>
+<td>common info update</td>
+</tr>
+<tr>
+<td>ft_bevent_values_update</td>
+<td>2</td>
+<td>value update</td>
+</tr>
+<tr>
+<td>ft_bevent_slaves_update</td>
+<td>4</td>
+<td>slaves set update</td>
+</tr>
+<tr>
+<td>ft_bevent_faults_update</td>
+<td>8</td>
+<td>faults update</td>
+</tr>
+</tbody>
+</table>
+<h3 id="ft_faults_flags">ft_faults_flags</h3>
+<p>The enum ft_faults_flags defines the motor driver faults.</p>
+<table>
+<thead>
+<tr>
+<th id="name">Name</th>
+<th id="value">Value</th>
+<th id="description">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FTF_OVP</td>
+<td>2</td>
+<td>overvoltage</td>
+</tr>
+<tr>
+<td>FTF_UVLO</td>
+<td>4</td>
+<td>undervoltage lock-out</td>
+</tr>
+<tr>
+<td>FTF_OCP</td>
+<td>8</td>
+<td>overcurrent</td>
+</tr>
+<tr>
+<td>FTF_OLD</td>
+<td>16</td>
+<td>open load</td>
+</tr>
+<tr>
+<td>FTF_OTW</td>
+<td>32</td>
+<td>overtemperature warning</td>
+</tr>
+<tr>
+<td>FTF_OTSD</td>
+<td>64</td>
+<td>overtemperature shutdown</td>
+</tr>
+</tbody>
+</table>
+<br>
+        </div>
+    </body>
+</html>

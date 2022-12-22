@@ -1,0 +1,767 @@
+<html>
+    <head>
+        <title>C Allocators Reference</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="../css/github-markdown.css">
+        <link rel="stylesheet" href="../css/main.css">
+        <script>
+            function closeMenu() {
+                document.getElementById("menu-title").style.display = "block"
+                document.getElementById("menu-close").style.display = "none"
+                document.getElementById("menu").style.display = "none"
+
+            }
+
+            function showMenu() {
+                document.getElementById("menu-title").style.display = "none"
+                document.getElementById("menu-close").style.display = "block"
+                document.getElementById("menu").style.display = "block"
+            }
+        </script>
+    </head>
+
+    <body>
+        <header class="frame menu-bar">
+            <div class="menu-control link" style="position: absolute; left: 0px;" onclick="showMenu()">≡</div>
+            <h2 class="link" onclick="location.href='../index.html';">TXT 4.0</h2>
+        </header>
+        <div class="frame menu" id="menu" style="display: none;">
+            <h2 class="link" id="menu-title" style="text-align: center;" onclick="location.href='../index.html';">TXT 4.0</h2>
+            <div class="menu-control link", id="menu-close" style="display: none;" onclick="closeMenu()">×</div>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="getting_started.html">Getting Started</a></li>
+                <li><a href="devices.html">Devices</a></li>
+                <li><a href="cpp_interface.html">C++ Interface</a></li>
+                <li><a href="c_interface.html" class="selected">C Interface</a></li>
+                <li>
+                    <ul>
+                        <li><a href="c_allocators.html" class="active">Allocators</a></li>
+                        <li><a href="c_operations.html">Operations</a></li>
+                        <li><a href="c_slaves.html">Slaves</a></li>
+                        <li><a href="c_fttypes.html">Types</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <div class="markdown-body">
+            <h1 id="c-allocators">C Allocators</h1>
+<p>The header ftalloc.h defines functions to allocate and free devices and a few
+utility functions. The devices' main functionality is defined in the
+<a href="c_operations.html">ftop.h</a> header.</p>
+<table>
+<thead>
+<tr>
+<th id="content">Content</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="#alloc_txt">ftop_alloc_txt</a></td>
+</tr>
+<tr>
+<td><a href="#alloc_switch">ftop_alloc_switch</a></td>
+</tr>
+<tr>
+<td><a href="#alloc_digital">ftop_alloc_digital</a></td>
+</tr>
+<tr>
+<td><a href="#alloc_voltmeter">ftop_alloc_voltmeter</a></td>
+</tr>
+<tr>
+<td><a href="#alloc_ultrasonic">ftop_alloc_ultrasonic</a></td>
+</tr>
+<tr>
+<td><a href="#alloc_resistor">ftop_alloc_resistor</a></td>
+</tr>
+<tr>
+<td><a href="#alloc_ncttermistor">ftop_alloc_ncttermistor</a></td>
+</tr>
+<tr>
+<td><a href="#alloc_colorsensor">ftop_alloc_colorsensor</a></td>
+</tr>
+<tr>
+<td><a href="#alloc_trail_follower">ftop_alloc_trail_follower</a></td>
+</tr>
+<tr>
+<td><a href="#alloc_counter">ftop_alloc_counter</a></td>
+</tr>
+<tr>
+<td><a href="#alloc_lamp">ftop_alloc_lamp</a></td>
+</tr>
+<tr>
+<td><a href="#alloc_servo">ftop_alloc_servo</a></td>
+</tr>
+<tr>
+<td><a href="#alloc_motor">ftop_alloc_motor</a></td>
+</tr>
+<tr>
+<td><a href="#alloc_encoder">ftop_alloc_encoder</a></td>
+</tr>
+<tr>
+<td><a href="#alloc_motor_step_counter">ftop_alloc_motor_step_counter</a></td>
+</tr>
+<tr>
+<td><a href="#free_txt">ftop_free_txt</a></td>
+</tr>
+<tr>
+<td><a href="#free_device">ftop_free_device</a></td>
+</tr>
+<tr>
+<td><a href="#alloc_mode">ftop_alloc_mode</a></td>
+</tr>
+<tr>
+<td><a href="#alloc_code">ftop_alloc_code</a></td>
+</tr>
+<tr>
+<td><a href="#check_usage">ftop_check_usage</a></td>
+</tr>
+<tr>
+<td><a href="#get_conn">ftop_get_conn</a></td>
+</tr>
+<tr>
+<td><a href="#get_typename">ftmop_get_typename</a></td>
+</tr>
+<tr>
+<td><a href="#extend_range">ftop_extend_range</a></td>
+</tr>
+<tr>
+<td><a href="#get_txt">ftop_get_txt</a></td>
+</tr>
+</tbody>
+</table>
+<h2 id="allocators">Allocators</h2>
+<p><em>Note</em>: In case of an error, all allocator functions return <em>NULL</em>! It is
+advisable to check the returned pointer before continuing.</p>
+<pre><code class="C language-C">#include &lt;ft/ft.h&gt;
+
+fttxt2 *txt = ftop_alloc_txt("auto", 65000);
+
+if (txt == NULL) {
+    // error during initialization of the TXT
+    // handle error
+    return 1;
+}</code></pre>
+<h3 id="span-classtype-idalloc_txtfttxt2-spanftop_alloc_txtspan-classtypeconst-char-spanhost-span-classtypeintspan-port"><span class="type" id="alloc_txt">fttxt2 *</span>ftop_alloc_txt(<span class="type">const char *</span>host, <span class="type">int</span> port)</h3>
+<p>Allocates the resourses for a <a href="devices.html#txt">TXT 4.0</a> object and
+initializes it. The object needs to be deleted using <a href="#free_txt">ftop_free_txt</a> before the program
+ends to free resourses! As of now, the parameteres for host and port are unused.</p>
+<table>
+<thead>
+<tr>
+<th id="type">Type</th>
+<th id="parameter">Parameter</th>
+<th id="description">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>in</td>
+<td>host</td>
+<td>sting describing host, use <em>"auto"</em> (unused)</td>
+</tr>
+<tr>
+<td>in</td>
+<td>port</td>
+<td>port (unused)</td>
+</tr>
+</tbody>
+</table>
+<p>Return:  <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pointer to TXT object</p>
+<h3 id="span-classtype-idalloc_switchftdevice-spanftop_alloc_switchspan-classtypefttxt2-spantxt-span-classtypeintspan-num"><span class="type" id="alloc_switch">ftdevice *</span>ftop_alloc_switch(<span class="type">fttxt2 *</span>txt, <span class="type">int</span> num)</h3>
+<p>Allocates the resources for a <a href="devices.html#switch">switch</a> device.</p>
+<p><em>Note</em>: Use the values from the <a href="c_fttypes.html#ftobjects_connection">ftobjects_connection</a> enum
+(<em>ftdev_i1 - ftdev_i8</em>) to specify the pin.  </p>
+<table>
+<thead>
+<tr>
+<th id="type">Type</th>
+<th id="parameter">Parameter</th>
+<th id="description">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>in</td>
+<td>txt</td>
+<td>pointer to TXT object</td>
+</tr>
+<tr>
+<td>in</td>
+<td>num</td>
+<td>pin number [<em>ftdedv_i1 - ftdev_i8</em>]</td>
+</tr>
+</tbody>
+</table>
+<p>Return:  <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pointer to switch object</p>
+<h3 id="span-classtype-idalloc_digitalftdevice-spanftop_alloc_digitalspan-classtypefttxt2-spantxt-span-classtypeintspan-num"><span class="type" id="alloc_digital">ftdevice *</span>ftop_alloc_digital(<span class="type">fttxt2 *</span>txt, <span class="type">int</span> num)</h3>
+<p>Allocates the resources for a <a href="devices.html#digital">digital</a> device.</p>
+<p><em>Note</em>: Use the values from the <a href="c_fttypes.html#ftobjects_connection">ftobjects_connection</a> enum
+(<em>ftdev_i1 - ftdev_i8</em>) to specify the pin.</p>
+<table>
+<thead>
+<tr>
+<th id="type">Type</th>
+<th id="parameter">Parameter</th>
+<th id="description">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>in</td>
+<td>txt</td>
+<td>pointer to TXT object</td>
+</tr>
+<tr>
+<td>in</td>
+<td>num</td>
+<td>pin number [<em>ftdedv_i1 - ftdev_i8</em>]</td>
+</tr>
+</tbody>
+</table>
+<p>Return:  <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pointer to digital object</p>
+<h3 id="span-classtype-idalloc_resistorftdevice-spanftop_alloc_resistorspan-classtypefttxt2-spantxt-span-classtypeintspan-num"><span class="type" id="alloc_resistor">ftdevice *</span>ftop_alloc_resistor(<span class="type">fttxt2 *</span>txt, <span class="type">int</span> num)</h3>
+<p>Allocates the resources for a <a href="devices.html#resistor">resistor</a> device.</p>
+<p><em>Note</em>: Use the values from the <a href="c_fttypes.html#ftobjects_connection">ftobjects_connection</a> enum
+(<em>ftdev_i1 - ftdev_i8</em>) to specify the pin.</p>
+<table>
+<thead>
+<tr>
+<th id="type">Type</th>
+<th id="parameter">Parameter</th>
+<th id="description">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>in</td>
+<td>txt</td>
+<td>pointer to TXT object</td>
+</tr>
+<tr>
+<td>in</td>
+<td>num</td>
+<td>pin number [<em>ftdedv_i1 - ftdev_i8</em>]</td>
+</tr>
+</tbody>
+</table>
+<p>Return:  <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pointer to resistor object</p>
+<h3 id="span-classtype-idalloc_voltmeterftdevice-spanftop_alloc_voltmeterspan-classtypefttxt2-spantxt-span-classtypeintspan-num"><span class="type" id="alloc_voltmeter">ftdevice *</span>ftop_alloc_voltmeter(<span class="type">fttxt2 *</span>txt, <span class="type">int</span> num)</h3>
+<p>Allocates the resources for a <a href="devices.html#voltmeter">voltmeter</a> device.</p>
+<p><em>Note</em>: Use the values from the <a href="c_fttypes.html#ftobjects_connection">ftobjects_connection</a> enum
+(<em>ftdev_i1 - ftdev_i8</em>) to specify the pin.</p>
+<table>
+<thead>
+<tr>
+<th id="type">Type</th>
+<th id="parameter">Parameter</th>
+<th id="description">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>in</td>
+<td>txt</td>
+<td>pointer to TXT object</td>
+</tr>
+<tr>
+<td>in</td>
+<td>num</td>
+<td>pin number [<em>ftdedv_i1 - ftdev_i8</em>]</td>
+</tr>
+</tbody>
+</table>
+<p>Return:  <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pointer to voltmeter object</p>
+<h3 id="span-classtype-idalloc_ultrasonicftdevice-spanftop_alloc_ultrasonicspan-classtypefttxt2-spantxt-span-classtypeintspan-num"><span class="type" id="alloc_ultrasonic">ftdevice *</span>ftop_alloc_ultrasonic(<span class="type">fttxt2 *</span>txt, <span class="type">int</span> num)</h3>
+<p>Allocates the resources for an <a href="devices.html#ultrasonic">ultrasonic</a> device.</p>
+<p><em>Note</em>: Use the values from the <a href="c_fttypes.html#ftobjects_connection">ftobjects_connection</a>
+enum (<em>ftdev_i1 - ftdev_i8</em>) to specify the pin.</p>
+<table>
+<thead>
+<tr>
+<th id="type">Type</th>
+<th id="parameter">Parameter</th>
+<th id="description">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>in</td>
+<td>txt</td>
+<td>pointer to TXT object</td>
+</tr>
+<tr>
+<td>in</td>
+<td>num</td>
+<td>pin number [<em>ftdedv_i1 - ftdev_i8</em>]</td>
+</tr>
+</tbody>
+</table>
+<p>Return:  <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pointer to ultrasonic object</p>
+<h3 id="span-classtype-idalloc_ncttermistorftdevice-spanftop_alloc_ncttermistorspan-classtypefttxt2-spantxt-span-classtypeintspan-num"><span class="type" id="alloc_ncttermistor">ftdevice *</span>ftop_alloc_ncttermistor(<span class="type">fttxt2 *</span>txt, <span class="type">int</span> num)</h3>
+<p>Allocates the resources for a <a href="devices.html#ntc-thermistor">ncttermistor</a> device.</p>
+<p><em>Note</em>: Use the values from the <a href="c_fttypes.html#ftobjects_connection">ftobjects_connection</a> enum
+(<em>ftdev_i1 - ftdev_i8</em>) to specify the pin.</p>
+<table>
+<thead>
+<tr>
+<th id="type">Type</th>
+<th id="parameter">Parameter</th>
+<th id="description">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>in</td>
+<td>txt</td>
+<td>pointer to TXT object</td>
+</tr>
+<tr>
+<td>in</td>
+<td>num</td>
+<td>pin number [<em>ftdedv_i1 - ftdev_i8</em>]</td>
+</tr>
+</tbody>
+</table>
+<p>Return:  <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pointer to ncttermistor object</p>
+<h3 id="span-classtype-idalloc_colorsensorftdevice-spanftop_alloc_colorsensorspan-classtypefttxt2-spantxt-span-classtypeintspan-num"><span class="type" id="alloc_colorsensor">ftdevice *</span>ftop_alloc_colorsensor(<span class="type">fttxt2 *</span>txt, <span class="type">int</span> num)</h3>
+<p>Allocates the resources for a <a href="devices.html#colorsensor">colorsensor</a> device.</p>
+<p><em>Note</em>: Use the values from the <a href="c_fttypes.html#ftobjects_connection">ftobjects_connection</a> enum
+(<em>ftdev_i1 - ftdev_i8</em>) to specify the pin.</p>
+<table>
+<thead>
+<tr>
+<th id="type">Type</th>
+<th id="parameter">Parameter</th>
+<th id="description">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>in</td>
+<td>txt</td>
+<td>pointer to TXT object</td>
+</tr>
+<tr>
+<td>in</td>
+<td>num</td>
+<td>pin number [<em>ftdedv_i1 - ftdev_i8</em>]</td>
+</tr>
+</tbody>
+</table>
+<p>Return:  <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pointer to colorsensor object</p>
+<h3 id="span-classtype-idalloc_trail_followerftdevice-spanftop_alloc_trail_followerspan-classtypefttxt2-spantxt-span-classtypeintspan-num"><span class="type" id="alloc_trail_follower">ftdevice *</span>ftop_alloc_trail_follower(<span class="type">fttxt2 *</span>txt, <span class="type">int</span> num)</h3>
+<p>Allocates the resources for a <a href="devices.html#trailfollower">trail follower</a> device.</p>
+<p><em>Note</em>: Use the values from the <a href="c_fttypes.html#ftobjects_connection">ftobjects_connection</a> enum
+(<em>ftdev_i1 - ftdev_i8</em>) to specify the pin.</p>
+<table>
+<thead>
+<tr>
+<th id="type">Type</th>
+<th id="parameter">Parameter</th>
+<th id="description">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>in</td>
+<td>txt</td>
+<td>pointer to TXT object</td>
+</tr>
+<tr>
+<td>in</td>
+<td>num</td>
+<td>pin number [<em>ftdedv_i1 - ftdev_i8</em>]</td>
+</tr>
+</tbody>
+</table>
+<p>Return:  <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pointer to trail follower object</p>
+<h3 id="span-classtype-idalloc_counterftdevice-spanftop_alloc_counterspan-classtypefttxt2-spantxt-span-classtypeintspan-num"><span class="type" id="alloc_counter">ftdevice *</span>ftop_alloc_counter(<span class="type">fttxt2 *</span>txt, <span class="type">int</span> num)</h3>
+<p>Allocates the resources for a <a href="devices.html#counter">counter</a> device.</p>
+<p><em>Note</em>: Use the values from the <a href="c_fttypes.html#ftobjects_connection">ftobjects_connection</a> enum
+(<em>ftdev_c1 - ftdev_c4</em>) to specify the pin.</p>
+<table>
+<thead>
+<tr>
+<th id="type">Type</th>
+<th id="parameter">Parameter</th>
+<th id="description">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>in</td>
+<td>txt</td>
+<td>pointer to TXT object</td>
+</tr>
+<tr>
+<td>in</td>
+<td>num</td>
+<td>pin number [<em>ftdedv_c1 - ftdev_c4</em>]</td>
+</tr>
+</tbody>
+</table>
+<p>Return:  <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pointer to counter object</p>
+<h3 id="span-classtype-idalloc_lampftdevice-spanftop_alloc_lampspan-classtypefttxt2-spantxt-span-classtypeintspan-num"><span class="type" id="alloc_lamp">ftdevice *</span>ftop_alloc_lamp(<span class="type">fttxt2 *</span>txt, <span class="type">int</span> num)</h3>
+<p>Allocates the resources for a <a href="devices.html#output-lamp">lamp</a> device.</p>
+<p><em>Note</em>: Use the values from the <a href="c_fttypes.html#ftobjects_connection">ftobjects_connection</a> enum
+(<em>ftdev_o1 - ftdev_o8</em>) to specify the pin.</p>
+<table>
+<thead>
+<tr>
+<th id="type">Type</th>
+<th id="parameter">Parameter</th>
+<th id="description">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>in</td>
+<td>txt</td>
+<td>pointer to TXT object</td>
+</tr>
+<tr>
+<td>in</td>
+<td>num</td>
+<td>pin number [<em>ftdedv_o1 - ftdev_o8</em>]</td>
+</tr>
+</tbody>
+</table>
+<p>Return:  <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pointer to lamp object</p>
+<h3 id="span-classtype-idalloc_servoftdevice-spanftop_alloc_servospan-classtypefttxt2-spantxt-span-classtypeintspan-num"><span class="type" id="alloc_servo">ftdevice *</span>ftop_alloc_servo(<span class="type">fttxt2 *</span>txt, <span class="type">int</span> num)</h3>
+<p>Allocates the resources for a <a href="devices.html#servo">servo</a> device.</p>
+<p><em>Note</em>: Use the values from the <a href="c_fttypes.html#ftobjects_connection">ftobjects_connection</a> enum
+(<em>ftdev_s1 - ftdev_s3</em>) to specify the pin.</p>
+<table>
+<thead>
+<tr>
+<th id="type">Type</th>
+<th id="parameter">Parameter</th>
+<th id="description">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>in</td>
+<td>txt</td>
+<td>pointer to TXT object</td>
+</tr>
+<tr>
+<td>in</td>
+<td>num</td>
+<td>pin number [<em>ftdedv_s1 - ftdev_s3</em>]</td>
+</tr>
+</tbody>
+</table>
+<p>Return:  <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pointer to servo object</p>
+<h3 id="span-classtype-idalloc_motorftdevice-spanftop_alloc_motorspan-classtypefttxt2-spantxt-span-classtypeintspan-num"><span class="type" id="alloc_motor">ftdevice *</span>ftop_alloc_motor(<span class="type">fttxt2 *</span>txt, <span class="type">int</span> num)</h3>
+<p>Allocates the resources for a <a href="devices.html#motor">motor</a> device.</p>
+<p><em>Note</em>: Use the values from the <a href="c_fttypes.html#ftobjects_connection">ftobjects_connection</a> enum
+(<em>ftdev_m1 - ftdev_m4</em>) to specify the pin.</p>
+<table>
+<thead>
+<tr>
+<th id="type">Type</th>
+<th id="parameter">Parameter</th>
+<th id="description">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>in</td>
+<td>txt</td>
+<td>pointer to TXT object</td>
+</tr>
+<tr>
+<td>in</td>
+<td>num</td>
+<td>pin number [<em>ftdedv_m1 - ftdev_m4</em>]</td>
+</tr>
+</tbody>
+</table>
+<p>Return:  <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pointer to motor object</p>
+<h3 id="span-classtype-idalloc_encoderftdevice-spanftop_alloc_encoderspan-classtypefttxt2-spantxt-span-classtypeintspan-num"><span class="type" id="alloc_encoder">ftdevice *</span>ftop_alloc_encoder(<span class="type">fttxt2 *</span>txt, <span class="type">int</span> num)</h3>
+<p>Allocates the resources for an <a href="devices.html#encoder">encoder</a> device including
+the corresponding counter.</p>
+<p><em>Note</em>: Use the values from the <a href="c_fttypes.html#ftobjects_connection">ftobjects_connection</a> enum
+(<em>ftdev_m1 - ftdev_m4</em>) to specify the pin.</p>
+<table>
+<thead>
+<tr>
+<th id="type">Type</th>
+<th id="parameter">Parameter</th>
+<th id="description">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>in</td>
+<td>txt</td>
+<td>pointer to TXT object</td>
+</tr>
+<tr>
+<td>in</td>
+<td>num</td>
+<td>pin number [<em>ftdedv_m1 - ftdev_m4</em>]</td>
+</tr>
+</tbody>
+</table>
+<p>Return:  <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pointer to encoder object</p>
+<h3 id="span-classtype-idalloc_motor_step_counterftdevice-spanftop_alloc_motor_step_counterspan-classtypefttxt2-spantxt-span-classtypeintspan-num"><span class="type" id="alloc_motor_step_counter">ftdevice *</span>ftop_alloc_motor_step_counter(<span class="type">fttxt2 *</span>txt, <span class="type">int</span> num)</h3>
+<p>Allocates the resources for a counter associated with an encoder motor. This
+function is mainly for internal purposes and usually not called by the user.</p>
+<p><em>Note</em>: Use the values from the <a href="c_fttypes.html#ftobjects_connection">ftobjects_connection</a> enum
+(<em>ftdev_c1 - ftdev_c4</em>) to specify the pin.</p>
+<table>
+<thead>
+<tr>
+<th id="type">Type</th>
+<th id="parameter">Parameter</th>
+<th id="description">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>in</td>
+<td>txt</td>
+<td>pointer to TXT object</td>
+</tr>
+<tr>
+<td>in</td>
+<td>num</td>
+<td>pin number [<em>ftdedv_c1 - ftdev_c4</em>]</td>
+</tr>
+</tbody>
+</table>
+<p>Return:  <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pointer to counter object</p>
+<h2 id="deallocators">Deallocators</h2>
+<h3 id="span-classtype-idfree_txtvoidspan-ftop_free_txtspan-classtypefttxt2-spantxt"><span class="type" id="free_txt">void</span> ftop_free_txt(<span class="type">fttxt2 *</span>txt)</h3>
+<p>Deallocates the TXT object and frees all resources. This function <strong>MUST</strong> be
+called before the program ends.</p>
+<table>
+<thead>
+<tr>
+<th id="type">Type</th>
+<th id="parameter">Parameter</th>
+<th id="description">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>in</td>
+<td>txt</td>
+<td>pointer to TXT object</td>
+</tr>
+</tbody>
+</table>
+<h3 id="span-classtype-idfree_devicevoidspan-ftop_free_devicespan-classtypeftdevice-spandevice"><span class="type" id="free_device">void</span> ftop_free_device(<span class="type">ftdevice *</span>device)</h3>
+<p>Frees all resources and resets connection used by device.</p>
+<table>
+<thead>
+<tr>
+<th id="type">Type</th>
+<th id="parameter">Parameter</th>
+<th id="description">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>in</td>
+<td>devicd</td>
+<td>pointer to device</td>
+</tr>
+</tbody>
+</table>
+<h2 id="utility-functions">Utility Functions</h2>
+<h3 id="span-classtype-idalloc_modeintspan-ftop_alloc_modespan-classtypefttxt2-spantxt-span-classtypeintspan-num"><span class="type" id="alloc_mode">int</span> ftop_alloc_mode(<span class="type">fttxt2 *</span>txt, <span class="type">int</span> num)</h3>
+<p>Returns the mode of the device. For universal inputs, this function returns the
+combination of <a href="c_fttypes.html#ftinput_modes">measurement mode and resolution</a>
+and for outputs/motors the output configuration (whether it's an output or a motor).</p>
+<p><em>Note</em>: Use the values from the <a href="c_fttypes.html#ftobjects_connection">ftobjects_connection</a> enum
+(<em>ftdev_i1 - ftdev_i8</em>, <em>ftdev_o1 - ftdev_o8</em>, <em>ftdev_m1 - ftdev_m4</em>) to specify the
+pin.</p>
+<table>
+<thead>
+<tr>
+<th id="type">Type</th>
+<th id="parameter">Parameter</th>
+<th id="description">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>in</td>
+<td>txt</td>
+<td>pointer to TXT object</td>
+</tr>
+<tr>
+<td>in</td>
+<td>num</td>
+<td>pin number</td>
+</tr>
+</tbody>
+</table>
+<p>Return:  <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;allocation mode</p>
+<h3 id="span-classtype-idalloc_codeintspan-ftop_alloc_codespan-classtypefttxt2-spantxt-span-classtypeintspan-num"><span class="type" id="alloc_code">int</span> ftop_alloc_code(<span class="type">fttxt2 *</span>txt, <span class="type">int</span> num)</h3>
+<p>Returns the <a href="c_fttypes.html#ftinputs_components">type</a> of the device. For universal inputs, this function returns the
+sensor type and for outputs/motors their type as well.</p>
+<p><em>Note</em>: Use the values from the <a href="c_fttypes.html#ftobjects_connection">ftobjects_connection</a> enum
+(<em>ftdev_i1 - ftdev_i8</em>, <em>ftdev_o1 - ftdev_o8</em>, <em>ftdev_m1 - ftdev_m4</em>) to specify the
+pin.</p>
+<table>
+<thead>
+<tr>
+<th id="type">Type</th>
+<th id="parameter">Parameter</th>
+<th id="description">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>in</td>
+<td>txt</td>
+<td>pointer to TXT object</td>
+</tr>
+<tr>
+<td>in</td>
+<td>num</td>
+<td>pin number</td>
+</tr>
+</tbody>
+</table>
+<p>Return:  <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;allocation code (device type)</p>
+<h3 id="span-classtype-idcheck_usageintspan-ftop_check_usagespan-classtypefttxt2-spantxt-span-classtypeintspan-num"><span class="type" id="check_usage">int</span> ftop_check_usage(<span class="type">fttxt2 *</span>txt, <span class="type">int</span> num)</h3>
+<p>Returns whether or not a device is allocated for that connector.</p>
+<p><em>Note</em>: Use the values from the <a href="c_fttypes.html#ftobjects_connection">ftobjects_connection</a> enum
+to specify the pin.</p>
+<table>
+<thead>
+<tr>
+<th id="type">Type</th>
+<th id="parameter">Parameter</th>
+<th id="description">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>in</td>
+<td>txt</td>
+<td>pointer to TXT object</td>
+</tr>
+<tr>
+<td>in</td>
+<td>num</td>
+<td>pin number</td>
+</tr>
+</tbody>
+</table>
+<p>Return:  <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pin usage</p>
+<h3 id="span-classtype-idget_connintspan-ftop_get_connspan-classtypeftdevice-spandevice"><span class="type" id="get_conn">int</span> ftop_get_conn(<span class="type">ftdevice *</span>device)</h3>
+<p>Returns the connector number of given device.</p>
+<table>
+<thead>
+<tr>
+<th id="type">Type</th>
+<th id="parameter">Parameter</th>
+<th id="description">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>in</td>
+<td>device</td>
+<td>pointer to device</td>
+</tr>
+</tbody>
+</table>
+<p>Return:  <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pin number</p>
+<h3 id="span-classtype-idget_typenameconst-char-spanftmop_get_typenamespan-classtypeunsigned-intspan-t"><span class="type" id="get_typename">const char *</span>ftmop_get_typename(<span class="type">unsigned int</span> t)</h3>
+<p>Returns the type name as a string. Takes the device type returned by
+<a href="#alloc_code">ftop_alloc_code</a> as input.</p>
+<table>
+<thead>
+<tr>
+<th id="type">Type</th>
+<th id="parameter">Parameter</th>
+<th id="description">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>in</td>
+<td>t</td>
+<td>device type</td>
+</tr>
+</tbody>
+</table>
+<p>Return:  <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;device name</p>
+<h3 id="span-classtype-idextend_rangevoidspan-ftop_extend_rangespan-classtypevoid-spandevice-span-classtypeintspan-mode"><span class="type" id="extend_range">void</span> ftop_extend_range(<span class="type">void *</span>device, <span class="type">int</span> mode)</h3>
+<p>Sets an input to normal or extended range. Pass 0 for normal detection range
+(0 - 5 V) and 1 for extended range (0 - 9 V).  </p>
+<table>
+<thead>
+<tr>
+<th id="type">Type</th>
+<th id="parameter">Parameter</th>
+<th id="description">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>in</td>
+<td>device</td>
+<td>pointer to device</td>
+</tr>
+<tr>
+<td>in</td>
+<td>mode</td>
+<td>new mode: 0 (normal) - 1 (extended)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="span-classtype-idget_txtvoid-spanftop_get_txtspan-classtypevoid-spandevice"><span class="type" id="get_txt">void *</span>ftop_get_txt(<span class="type">void *</span>device)</h3>
+<p>Returns TXT object the device is connected.  </p>
+<table>
+<thead>
+<tr>
+<th id="type">Type</th>
+<th id="parameter">Parameter</th>
+<th id="description">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>in</td>
+<td>device</td>
+<td>pointer to device</td>
+</tr>
+</tbody>
+</table>
+<p>Return:  <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pointer to TXT object</p>
+<br>
+        </div>
+    </body>
+</html>

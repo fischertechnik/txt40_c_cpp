@@ -1,0 +1,219 @@
+@media (prefers-color-scheme: dark) {
+    :root {
+        color-scheme: dark;
+        --color-fg-default: #c9d1d9;
+        --color-fg-muted: #8b949e;
+        --color-fg-subtle: #484f58;
+        --color-canvas-default: #0d1117;
+        --color-canvas-subtle: #161b22;
+        --color-border-default: #30363d;
+        --color-border-muted: #21262d;
+        --color-neutral-muted: rgba(110,118,129,0.4);
+        --color-accent-fg: #58a6ff;
+        --color-accent-emphasis: #1f6feb;
+        --color-attention-subtle: rgba(187,128,9,0.15);
+        --color-danger-fg: #f85149;
+    }
+
+    .menu a.active {
+        color-scheme: dark;
+        color: black;
+        background-color: firebrick;
+    }
+}
+
+@media (prefers-color-scheme: light) {
+    :root {
+        color-scheme: light;
+        --color-fg-default: #24292f;
+        --color-fg-muted: #57606a;
+        --color-fg-subtle: #6e7781;
+        --color-canvas-default: hsl(0, 0%, 100%);
+        --color-canvas-subtle: #f6f8fa;
+        --color-border-default: #d0d7de;
+        --color-border-muted: hsla(210,18%,87%,1);
+        --color-neutral-muted: rgba(175,184,193,0.2);
+        --color-accent-fg: #0969da;
+        --color-accent-emphasis: #0969da;
+        --color-attention-subtle: #fff8c5;
+        --color-danger-fg: #cf222e;
+    }
+
+    .menu a.active {
+        color-scheme: light;
+        color: white;
+        background-color: firebrick;
+    }
+}
+
+/*
+ * Some variables to style the menu bar and side bar.
+ */
+
+:root {
+    --menu-width: 200px;
+    --menu-bar-height: 50px;
+    --content-margin-top: 60px;
+    --content-margin-left: 245px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    -ms-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+    margin: 0 auto;
+    min-width: 200px;
+	max-width: 1180px;
+    color: var(--color-fg-default);
+    background-color: var(--color-canvas-default);
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
+    font-size: 16px;
+    line-height: 1.5;
+    word-wrap: break-word;
+}
+
+/*
+ * Proper cursor rendering when hover over object with a link attached
+ */
+.link {
+    cursor: pointer;
+}
+
+.title {
+    margin-top: 50px;
+    margin-bottom: 0px;
+    text-align: center;
+    font-size: 4em;
+}
+
+.frame {
+    color-scheme: dark;
+    border-color: var(--color-border-default);
+    border-radius: 8px;
+    border-width: 1px;
+    border-style: solid;
+}
+
+/*
+ * Menu (Side Bar)
+ */
+
+.menu {
+    background-color: var(--color-canvas-subtle);
+    border-radius: initial;
+    position: fixed !important;
+    top: 0px !important;
+    width: var(--menu-width);
+    height: 100%;
+}
+
+.menu ul {
+    list-style-type: none;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: auto;
+}
+
+.menu ul ul {
+    padding-left: 16px;
+}
+
+.menu a {
+    display: block;
+    color: var(--color-fg-default);
+    padding: 8px 16px;
+    text-decoration: none;
+}
+
+.menu a.selected {
+    background-color: var(--color-border-default);
+    color: var(--color-fg-default)
+}
+
+.menu a:hover:not(.active, .selected) {
+    background-color: var(--color-canvas-default);
+}
+
+.menu-control {
+    margin-left: 25px;
+    font-size: xx-large;
+}
+
+/*
+ * Menu Bar
+ */
+
+.menu-bar {
+    background-color: var(--color-canvas-subtle);
+    border-radius: initial;
+    position: fixed !important;
+    top: 0px !important;
+    height: var(--menu-bar-height);
+    width: 100%;
+    max-width: inherit;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+/*
+ * Markdown body
+ */
+
+.markdown-body {
+    margin-left: var(--content-margin-left);
+    margin-right: 15px;
+    margin-top: var(--content-margin-top);
+    transition: margin-left .4s;
+}
+
+/*
+ * Tables within markdown
+ */
+
+table tr td a {
+    box-sizing: initial;
+    display: block;
+    color: inherit !important;
+    width: 100%;
+    height: 100%;
+    padding: 7px 14px;
+    margin: -7px -14px;
+}
+
+/*
+ * Types
+ */
+
+.type {
+    color: FireBrick;
+    font-style: italic;
+}
+
+@media (min-width: 993px) {
+    .menu {
+        display: block !important;
+    }
+
+    .menu-bar {
+        display: none !important;
+    }
+}
+
+@media (max-width: 992px) {
+    .menu {
+        display: none;
+    }
+
+    .menu-bar {
+        display: flex !important;
+    }
+
+    :root {
+        --content-margin-left: 15px;
+    }
+}
